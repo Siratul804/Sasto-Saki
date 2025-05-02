@@ -43,7 +43,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold text-[#F48FB1]">
+            <span className="text-xl font-bold text-[#9059a1]">
              স্বাস্থ্য সখী 
             </span>
           </Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <Globe className="h-5 w-5 text-[#F48FB1]" />
+                  <Globe className="h-5 w-5 text-[#bengali]" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -73,12 +73,12 @@ export default function Navbar() {
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link href="/patient/dashboard">
-              <Button variant="outline" className="border-[#F48FB1] text-[#F48FB1] hover:bg-[#f8BBD0]/10">
+              <Button variant="outline" className="border-[#9059a1] text-[#9059a1] hover:bg-[#f8BBD0]/10">
                 {t.patientPortal}
               </Button>
             </Link>
             <Link href="/doctor/register">
-              <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0]">{t.doctorPortal}</Button>
+              <Button className="bg-[#9059a1] hover:bg-[#f8BBD0]">{t.doctorPortal}</Button>
             </Link>
           </div>
 

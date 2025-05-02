@@ -19,33 +19,33 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#f8BBD0] to-[#F48FB1] py-20">
+      <section className="bg-gradient-to-r from-[#ba98c4] to-[#9059a1] py-20">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Complete Women's Health Companion</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">সম্পূর্ণ নারী স্বাস্থ্য সঙ্গী</h1>
               <p className="text-white text-lg mb-8">
-                Personalized health tracking, insights, and support in your language. Connect with doctors and a
-                supportive community.
+              আপনার ভাষায় ব্যক্তিগতকৃত স্বাস্থ্য ট্র্যাকিং, অন্তর্দৃষ্টি এবং সহায়তা। ডাক্তার এবং একটি সহায়ক সম্প্রদায়ের সাথে সংযোগ স্থাপন করুন।
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/patient/dashboard">
-                  <Button className="bg-white text-[#F48FB1] hover:bg-gray-100 hover:text-[#F48FB1]">
-                    Patient Portal
+                  <Button className="bg-white text-[#9059a1] hover:bg-gray-100 hover:text-[#F48FB1]">
+                  রোগীর পোর্টাল
                   </Button>
                 </Link>
                 <Link href="/doctor/register">
                   <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
-                    Doctor Portal
+                  ডাক্তার পোর্টাল
                   </Button>
                 </Link>
               </div>
             </div>
             <div className="md:w-1/2 flex justify-center">
               <img
-                src="/placeholder.svg?height=400&width=400"
+                src="/hero.png"
+                
                 alt="Women's health app interface"
-                className="rounded-lg shadow-xl"
+                className="rounded-lg shadow-xl w-[600px]"
               />
             </div>
           </div>
@@ -55,22 +55,22 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4 text-[#F48FB1]">Comprehensive Health Features</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-[#9059a1]">ব্যাপক স্বাস্থ্য বৈশিষ্ট্য</h2>
           <p className="text-gray-600 text-center mb-16 max-w-3xl mx-auto">
-            Our platform offers a complete suite of tools designed specifically for women's health needs
+          আমাদের প্ল্যাটফর্মটি মহিলাদের স্বাস্থ্যের চাহিদার জন্য বিশেষভাবে ডিজাইন করা সরঞ্জামগুলির একটি সম্পূর্ণ স্যুট অফার করে
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <Link href="/multilingual" className="block">
               <div className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow h-full">
-                <div className="bg-[#f8BBD0] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#ba98c4] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Globe className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">Multilingual Interface</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">বহুভাষিক ইন্টারফেস</h3>
                 <p className="text-gray-600">
-                  Supports standard Bengali and local dialects for both rural and urban users, making healthcare
-                  accessible to all.
+                গ্রামীণ এবং শহুরে উভয় ব্যবহারকারীর জন্য প্রমিত বাংলা এবং স্থানীয় উপভাষা সমর্থন করে, যা সকলের জন্য স্বাস্থ্যসেবা
+                সুলভ করে তোলে।
                 </p>
               </div>
             </Link>
@@ -78,13 +78,12 @@ export default function Home() {
             {/* Feature 2 */}
             <Link href="/patient/daily-input" className="block">
               <div className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow h-full">
-                <div className="bg-[#f8BBD0] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#ba98c4] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Heart className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">AI-powered Health Insights</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">এআই-চালিত স্বাস্থ্য অন্তর্দৃষ্টি</h3>
                 <p className="text-gray-600">
-                  Tracks mood, period, water intake, and more to provide predictive insights for menstruation and
-                  pregnancy.
+                ঋতুস্রাব এবং গর্ভাবস্থার ভবিষ্যদ্বাণীমূলক অন্তর্দৃষ্টি প্রদানের জন্য মেজাজ, মাসিক, জল গ্রহণ এবং আরও অনেক কিছু ট্র্যাক করে।
                 </p>
               </div>
             </Link>
@@ -92,12 +91,12 @@ export default function Home() {
             {/* Feature 3 */}
             <Link href="/patient/reports" className="block">
               <div className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow h-full">
-                <div className="bg-[#f8BBD0] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#ba98c4] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <BarChart3 className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">Smart Reports & Recommendations</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">Smart রিপোর্ট এবং সুপারিশ</h3>
                 <p className="text-gray-600">
-                  Weekly and monthly health summaries with personalized feedback and curated doctor suggestions.
+                ব্যক্তিগতকৃত প্রতিক্রিয়া এবং কিউরেটেড ডাক্তারের পরামর্শ সহ সাপ্তাহিক এবং মাসিক স্বাস্থ্য সারাংশ।
                 </p>
               </div>
             </Link>
@@ -105,12 +104,12 @@ export default function Home() {
             {/* Feature 4 */}
             <Link href="/patient/consultation" className="block">
               <div className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow h-full">
-                <div className="bg-[#f8BBD0] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#ba98c4] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Video className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">Consultation System</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">পরামর্শ ব্যবস্থা</h3>
                 <p className="text-gray-600">
-                  In-app booking and payments for doctor consultations via chat or video calls.
+                চ্যাট বা ভিডিও কলের মাধ্যমে অ্যাপ-মধ্যস্থ বুকিং এবং ডাক্তারের পরামর্শের জন্য অর্থপ্রদান।
                 </p>
               </div>
             </Link>
@@ -118,12 +117,12 @@ export default function Home() {
             {/* Feature 5 */}
             <Link href="/patient/symptom-checker" className="block">
               <div className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow h-full">
-                <div className="bg-[#f8BBD0] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#ba98c4] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <FileText className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">Symptom Checker</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">লক্ষণ পরীক্ষক</h3>
                 <p className="text-gray-600">
-                  Guided tool for detecting risks of PCOS, PCOD, and other conditions with auto-generated reports.
+                স্বয়ংক্রিয়ভাবে তৈরি প্রতিবেদন সহ PCOS, PCOD এবং অন্যান্য অবস্থার ঝুঁকি সনাক্তকরণের জন্য নির্দেশিত টুল।
                 </p>
               </div>
             </Link>
@@ -131,12 +130,12 @@ export default function Home() {
             {/* Feature 6 */}
             <Link href="/patient/mental-health" className="block">
               <div className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow h-full">
-                <div className="bg-[#f8BBD0] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <div className="bg-[#ba98c4] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Brain className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">Mental Health Chatbot</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">Mental স্বাস্থ্য চ্যাটবট</h3>
                 <p className="text-gray-600">
-                  AI chatbot offering emotional support and mental health guidance with real-time doctor referrals.
+                AI চ্যাটবট রিয়েল-টাইম ডাক্তার রেফারেলের মাধ্যমে মানসিক সহায়তা এবং মানসিক স্বাস্থ্য নির্দেশিকা প্রদান করে।
                 </p>
               </div>
             </Link>
@@ -149,43 +148,42 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-10 md:mb-0">
-              <h2 className="text-3xl font-bold mb-6 text-[#F48FB1]">Connect with a Supportive Community</h2>
+              <h2 className="text-3xl font-bold mb-6 text-[#9059a1]">একটি সহায়ক সম্প্রদায়ের সাথে সংযোগ স্থাপন করুন</h2>
               <p className="text-gray-600 mb-6">
-                Join our anonymous community forums where you can share experiences, ask questions, and receive advice
-                from others who understand what you're going through.
+              আমাদের বেনামী কমিউনিটি ফোরামে যোগদান করুন যেখানে আপনি অভিজ্ঞতা ভাগ করে নিতে পারেন, প্রশ্ন জিজ্ঞাসা করতে পারেন এবং আপনার সমস্যা বুঝতে পারে এমন অন্যদের কাছ থেকে পরামর্শ নিতে পারেন।
               </p>
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <Shield className="text-[#F48FB1] mr-3 mt-1" size={20} />
+                  <Shield className="text-[#9059a1] mr-3 mt-1" size={20} />
                   <div>
-                    <h4 className="font-semibold text-gray-800">Anonymous Forums</h4>
-                    <p className="text-gray-600">Share and receive advice in a safe, anonymous environment</p>
+                    <h4 className="font-semibold text-gray-800">Anonymous ফোরাম</h4>
+                    <p className="text-gray-600">নিরাপদ, বেনামী পরিবেশে পরামর্শ শেয়ার করুন এবং গ্রহণ করুন</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Users className="text-[#F48FB1] mr-3 mt-1" size={20} />
+                  <Users className="text-[#9059a1] mr-3 mt-1" size={20} />
                   <div>
-                    <h4 className="font-semibold text-gray-800">Supportive Network</h4>
-                    <p className="text-gray-600">Connect with others who understand your experiences</p>
+                    <h4 className="font-semibold text-gray-800">সহায়ক নেটওয়ার্ক</h4>
+                    <p className="text-gray-600">আপনার অভিজ্ঞতা বোঝেন এমন অন্যদের সাথে সংযোগ স্থাপন করুন</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <UserPlus className="text-[#F48FB1] mr-3 mt-1" size={20} />
+                  <UserPlus className="text-[#9059a1] mr-3 mt-1" size={20} />
                   <div>
-                    <h4 className="font-semibold text-gray-800">Partner Mode</h4>
-                    <p className="text-gray-600">View-only health update access for partners, controlled by you</p>
+                    <h4 className="font-semibold text-gray-800">Partner মোড</h4>
+                    <p className="text-gray-600">আপনার দ্বারা নিয়ন্ত্রিত, অংশীদারদের জন্য শুধুমাত্র দেখার জন্য স্বাস্থ্য আপডেট অ্যাক্সেস</p>
                   </div>
                 </div>
               </div>
               <Link href="/patient/partner-mode" className="mt-6 inline-block">
-                <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0]">Partner Mode</Button>
+                <Button className="bg-[#9059a1] hover:bg-[#f8BBD0]">Partner মোড</Button>
               </Link>
             </div>
             <div className="md:w-1/2 flex justify-center">
               <img
-                src="/placeholder.svg?height=400&width=400"
+                src="/women.jpeg"
                 alt="Community support illustration"
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg h-[600px]"
               />
             </div>
           </div>
