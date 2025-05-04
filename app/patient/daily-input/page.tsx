@@ -1,57 +1,69 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Check, Droplets, Heart, Moon, Pill, ThumbsUp } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import type React from "react";
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Check, Droplets, Heart, Moon, Pill, ThumbsUp } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function DailyInput() {
-  const [activeTab, setActiveTab] = useState("period")
-  const [submitted, setSubmitted] = useState(false)
-  const [waterIntake, setWaterIntake] = useState(1.2)
-  const [moodLevel, setMoodLevel] = useState(3)
-  const [periodFlow, setPeriodFlow] = useState("none")
-  const [symptoms, setSymptoms] = useState("")
+  const [activeTab, setActiveTab] = useState("period");
+  const [submitted, setSubmitted] = useState(false);
+  const [waterIntake, setWaterIntake] = useState(1.2);
+  const [moodLevel, setMoodLevel] = useState(3);
+  const [periodFlow, setPeriodFlow] = useState("none");
+  const [symptoms, setSymptoms] = useState("");
 
-  const moodLabels = ["খুব খারাপ", "খারাপ", "নিরপেক্ষ", "ভালো", "চমৎকার"]
+  const moodLabels = ["খুব খারাপ", "খারাপ", "নিরপেক্ষ", "ভালো", "চমৎকার"];
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-    // In a real app, this would send data to the backend
-    setTimeout(() => {
-      setSubmitted(false)
-    }, 3000)
-  }
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-[#ba98c4] to-[#9059a1] py-8">
+      {/* শিরোনাম */}
+      <div className="bg-gradient-to-r from-[#9059a1] to-[#683f75] py-8">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-white mb-2">Daily Health Input</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">
+            দৈনিক স্বাস্থ্য ইনপুট
+          </h1>
           <p className="text-white opacity-90">
-            Track your daily health metrics to get personalized insights and recommendations.
+            আপনার দৈনিক স্বাস্থ্য পরিমাপ ট্র্যাক করুন এবং ব্যক্তিগতকৃত পরামর্শ
+            পান।
           </p>
         </div>
       </div>
 
-      {/* Content */}
+      {/* কনটেন্ট */}
       <div className="container mx-auto px-4 -mt-6">
         <Card className="shadow-md">
           <CardHeader>
-            <CardTitle>Today's Health Tracking</CardTitle>
+            <CardTitle>আজকের স্বাস্থ্য ট্র্যাকিং</CardTitle>
             <CardDescription>
-              {new Date().toLocaleDateString("en-US", {
+              {new Date().toLocaleDateString("bn-BD", {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
@@ -59,18 +71,24 @@ export default function DailyInput() {
               })}
             </CardDescription>
           </CardHeader>
+
           <CardContent>
             {submitted ? (
               <Alert className="bg-green-50 border-green-200">
                 <ThumbsUp className="h-4 w-4 text-green-600" />
-                <AlertTitle className="text-purple-800">Success!</AlertTitle>
+                <AlertTitle className="text-purple-800">সফল!</AlertTitle>
                 <AlertDescription className="text-purple-700">
-                  Your health data has been recorded. We'll update your insights based on this information.
+                  আপনার স্বাস্থ্য তথ্য রেকর্ড হয়েছে। আমরা তথ্য অনুযায়ী ইনসাইট
+                  আপডেট করব।
                 </AlertDescription>
               </Alert>
             ) : (
               <form onSubmit={handleSubmit}>
-                <Tabs defaultValue="period" value={activeTab} onValueChange={setActiveTab}>
+                <Tabs
+                  defaultValue="period"
+                  value={activeTab}
+                  onValueChange={setActiveTab}
+                >
                   <TabsList className="grid grid-cols-4 mb-6">
                     <TabsTrigger value="period" className="flex items-center">
                       <Heart className="mr-2 h-4 w-4" />
@@ -82,68 +100,85 @@ export default function DailyInput() {
                     </TabsTrigger>
                     <TabsTrigger value="water" className="flex items-center">
                       <Droplets className="mr-2 h-4 w-4" />
-                      <span className="hidden sm:inline">জল</span>
+                      <span className="hidden sm:inline">পানি</span>
                     </TabsTrigger>
-                    <TabsTrigger value="medication" className="flex items-center">
+                    <TabsTrigger
+                      value="medication"
+                      className="flex items-center"
+                    >
                       <Pill className="mr-2 h-4 w-4" />
                       <span className="hidden sm:inline">ঔষধ</span>
                     </TabsTrigger>
                   </TabsList>
 
-                  {/* Period Tab */}
+                  {/* মাসিক ট্যাব */}
                   <TabsContent value="period" className="space-y-4">
                     <div>
-                      <Label htmlFor="period-flow">পিরিয়ড ফ্লো</Label>
+                      <Label htmlFor="period-flow">পিরিয়ড প্রবাহ</Label>
                       <Select value={periodFlow} onValueChange={setPeriodFlow}>
                         <SelectTrigger id="period-flow">
-                          <SelectValue placeholder="Select flow intensity" />
+                          <SelectValue placeholder="প্রবাহ নির্বাচন করুন" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="none">None</SelectItem>
-                          <SelectItem value="light">Light</SelectItem>
-                          <SelectItem value="medium">Medium</SelectItem>
-                          <SelectItem value="heavy">Heavy</SelectItem>
-                          <SelectItem value="spotting">Spotting</SelectItem>
+                          <SelectItem value="none">কোনো নয়</SelectItem>
+                          <SelectItem value="light">হালকা</SelectItem>
+                          <SelectItem value="medium">মধ্যম</SelectItem>
+                          <SelectItem value="heavy">ভারী</SelectItem>
+                          <SelectItem value="spotting">স্পটিং</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <Label htmlFor="symptoms">Symptoms</Label>
+                      <Label htmlFor="symptoms">লক্ষণসমূহ</Label>
                       <Textarea
                         id="symptoms"
-                        placeholder="Describe any symptoms you're experiencing..."
+                        placeholder="আপনি যে কোনও লক্ষণ অনুভব করছেন তা বর্ণনা করুন..."
                         value={symptoms}
                         onChange={(e) => setSymptoms(e.target.value)}
                       />
                     </div>
 
                     <div className="flex justify-between">
-                      <Button type="button" variant="outline" onClick={() => setActiveTab("mood")}>
-                        Skip
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setActiveTab("mood")}
+                      >
+                        এড়িয়ে যান
                       </Button>
-                      <Button type="button" onClick={() => setActiveTab("mood")}>
-                        Next
+                      <Button
+                        type="button"
+                        onClick={() => setActiveTab("mood")}
+                      >
+                        পরবর্তী
                       </Button>
                     </div>
                   </TabsContent>
 
-                  {/* Mood Tab */}
+                  {/* মেজাজ ট্যাব */}
                   <TabsContent value="mood" className="space-y-4">
                     <div>
-                      <Label>আজ কেমন লাগছে?</Label>
+                      <Label>আজ কেমন অনুভব করছেন?</Label>
                       <div className="mt-6 mb-2">
                         <Slider
                           value={[moodLevel]}
                           min={0}
                           max={4}
                           step={1}
-                          onValueChange={(value) => setMoodLevel(value[0])}
+                          onValueChange={(val) => setMoodLevel(val[0])}
                         />
                       </div>
                       <div className="flex justify-between text-sm text-gray-500 mt-1">
-                        {moodLabels.map((label, index) => (
-                          <span key={index} className={`${index === moodLevel ? "text-[#9059a1] font-medium" : ""}`}>
+                        {moodLabels.map((label, idx) => (
+                          <span
+                            key={idx}
+                            className={`${
+                              idx === moodLevel
+                                ? "text-[#9059a1] font-medium"
+                                : ""
+                            }`}
+                          >
                             {label}
                           </span>
                         ))}
@@ -152,20 +187,30 @@ export default function DailyInput() {
 
                     <div>
                       <Label htmlFor="mood-notes">নোট (ঐচ্ছিক)</Label>
-                      <Textarea id="mood-notes" placeholder="Any specific thoughts or feelings..." />
+                      <Textarea
+                        id="mood-notes"
+                        placeholder="বিশেষ কোনো মতামত..."
+                      />
                     </div>
 
                     <div className="flex justify-between">
-                      <Button type="button" variant="outline" onClick={() => setActiveTab("water")}>
-                      এড়িয়ে যান
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setActiveTab("water")}
+                      >
+                        এড়িয়ে যান
                       </Button>
-                      <Button type="button" onClick={() => setActiveTab("water")}>
-                      পরবর্তী
+                      <Button
+                        type="button"
+                        onClick={() => setActiveTab("water")}
+                      >
+                        পরবর্তী
                       </Button>
                     </div>
                   </TabsContent>
 
-                  {/* Water Tab */}
+                  {/* পানি ট্যাব */}
                   <TabsContent value="water" className="space-y-4">
                     <div>
                       <Label>পানি গ্রহণ (লিটার)</Label>
@@ -176,105 +221,126 @@ export default function DailyInput() {
                           max={4}
                           step={0.1}
                           className="flex-1 mr-4"
-                          onValueChange={(value) => setWaterIntake(value[0])}
+                          onValueChange={(val) => setWaterIntake(val[0])}
                         />
-                        <div className="w-16 text-center font-medium text-lg">{waterIntake}L</div>
+                        <div className="w-16 text-center font-medium text-lg">
+                          {waterIntake}L
+                        </div>
                       </div>
-                      <div className="mt-2 text-sm text-gray-500">
-                        <p>প্রস্তাবিত দৈনিক গ্রহণ: ২.৫ লিটার</p>
-                      </div>
+                      <p className="mt-2 text-sm text-gray-500">
+                        প্রস্তাবিত দৈনিক গ্রহণ: ২.৫ লিটার
+                      </p>
                     </div>
 
                     <div className="flex justify-between">
-                      <Button type="button" variant="outline" onClick={() => setActiveTab("medication")}>
-                        Skip
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setActiveTab("medication")}
+                      >
+                        এড়িয়ে যান
                       </Button>
-                      <Button type="button" onClick={() => setActiveTab("medication")}>
-                        Next
+                      <Button
+                        type="button"
+                        onClick={() => setActiveTab("medication")}
+                      >
+                        পরবর্তী
                       </Button>
                     </div>
                   </TabsContent>
 
-                  {/* Medication Tab */}
+                  {/* ঔষধ ট্যাব */}
                   <TabsContent value="medication" className="space-y-4">
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
-                        <div className="flex items-center">
-                          <Pill className="h-5 w-5 text-[#9059a1] mr-3" />
-                          <div>
-                            <p className="font-medium">Prenatal Vitamin</p>
-                            <p className="text-sm text-gray-500">1 tablet, morning</p>
+                      {[
+                        {
+                          name: "Prenatal Vitamin",
+                          info: "১ ট্যাবলেট, সকাল",
+                        },
+                        {
+                          name: "Iron Supplement",
+                          info: "১ ট্যাবলেট, সন্ধ্যায় খাবারের সাথে",
+                        },
+                      ].map((med, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border"
+                        >
+                          <div className="flex items-center">
+                            <Pill className="h-5 w-5 text-[#9059a1] mr-3" />
+                            <div>
+                              <p className="font-medium">{med.name}</p>
+                              <p className="text-sm text-gray-500">
+                                {med.info}
+                              </p>
+                            </div>
                           </div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 gap-1"
+                          >
+                            <Check className="h-4 w-4" /> নেওয়া হয়েছে
+                          </Button>
                         </div>
-                        <Button variant="outline" size="sm" className="h-8 gap-1">
-                          <Check className="h-4 w-4" /> Taken
-                        </Button>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
-                        <div className="flex items-center">
-                          <Pill className="h-5 w-5 text-[#9059a1] mr-3" />
-                          <div>
-                            <p className="font-medium">Iron Supplement</p>
-                            <p className="text-sm text-gray-500">1 tablet, evening with food</p>
-                          </div>
-                        </div>
-                        <Button variant="outline" size="sm" className="h-8 gap-1">
-                          <Check className="h-4 w-4" /> Taken
-                        </Button>
-                      </div>
+                      ))}
                     </div>
 
                     <div>
-                      <Label htmlFor="medication-notes">Additional Medications</Label>
-                      <Textarea id="medication-notes" placeholder="List any other medications you took today..." />
+                      <Label htmlFor="medication-notes">অতিরিক্ত ঔষধ</Label>
+                      <Textarea
+                        id="medication-notes"
+                        placeholder="অন্য ঔষধসমূহ লিখুন..."
+                      />
                     </div>
 
                     <div className="flex justify-end">
-                      <Button type="submit">Submit All Data</Button>
+                      <Button type="submit">সকল তথ্য জমা</Button>
                     </div>
                   </TabsContent>
                 </Tabs>
               </form>
             )}
           </CardContent>
+
           <CardFooter className="flex justify-between border-t pt-6">
             <Link href="/patient/dashboard">
               <Button variant="outline">ড্যাশবোর্ডে ফিরে যান</Button>
             </Link>
             <Link href="/patient/reports">
               <Button variant="link" className="text-[#9059a1]">
-              স্বাস্থ্য রিপোর্ট দেখুন
+                স্বাস্থ্য রিপোর্ট দেখুন
               </Button>
             </Link>
           </CardFooter>
         </Card>
 
-        {/* AI Insights Preview */}
+        {/* এআই ইনসাইটস */}
         <Card className="shadow-md mt-6">
           <CardHeader>
             <CardTitle className="flex items-center">
-              <Heart className="mr-2 h-5 w-5 text-[#9059a1]" />
-              এআই হেলথ ইনসাইটস
+              <Heart className="mr-2 h-5 w-5 text-[#9059a1]" /> এআই ইনসাইটস
             </CardTitle>
-            <CardDescription>আপনার সাম্প্রতিক স্বাস্থ্য তথ্যের উপর ভিত্তি করে</CardDescription>
+            <CardDescription>সাম্প্রতিক তথ্য অনুযায়ী পরামর্শ</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="p-4 bg-[#f8BBD0]/10 rounded-lg border border-[#9059a1]">
-              <h3 className="font-medium text-[#9059a1] mb-2">দৈনিক সুপারিশ</h3>
+            <div className="p-4 bg-[#9059a1]/10 rounded-lg border border-[#9059a1]">
+              <h3 className="font-medium text-[#9059a1] mb-2">দৈনিক পরামর্শ</h3>
               <p className="text-gray-700">
-                Based on your recent mood patterns and water intake, we recommend increasing your hydration today and
-                taking a 15-minute walk outside. This may help improve your energy levels.
+                আপনার মেজাজ ও পানির পরিমাণ অনুযায়ী পরিমিত জল গ্রহণ বাড়ান এবং
+                ১৫ মিনিট হাঁটুন।
               </p>
             </div>
           </CardContent>
           <CardFooter>
             <Link href="/patient/reports" className="w-full">
-              <Button className="w-full bg-[#9059a1] hover:bg-[#ba98c4]">View Full Health Analysis</Button>
+              <Button className="w-full bg-[#9059a1] hover:bg-[#683f75]">
+                সম্পূর্ণ বিশ্লেষণ দেখুন
+              </Button>
             </Link>
           </CardFooter>
         </Card>
       </div>
     </div>
-  )
+  );
 }

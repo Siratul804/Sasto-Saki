@@ -1,14 +1,32 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Heart, MessageCircle, Plus, Search, Shield, ThumbsUp, Users, Filter, AlertCircle, Tag } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Heart,
+  MessageCircle,
+  Plus,
+  Search,
+  Shield,
+  ThumbsUp,
+  Users,
+  Filter,
+  AlertCircle,
+  Tag,
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -17,104 +35,115 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CommunityPage() {
-  const [activeTab, setActiveTab] = useState("all")
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  const [activeTab, setActiveTab] = useState("all");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Dummy posts data
   const posts = [
     {
       id: 1,
-      title: "Dealing with PCOS symptoms",
+      title: "PCOS লক্ষণ নিয়ে কীভাবে মোকাবিলা করবেন",
       content:
-        "I was recently diagnosed with PCOS and I'm struggling with the symptoms. Has anyone found effective ways to manage the hormonal imbalances and mood swings?",
-      author: "Anonymous",
+        "আমাকে সম্প্রতি PCOS ধরা পড়েছে এবং লক্ষণগুলির সাথে লড়াই করছি। হরমোনের ভারসাম্যহীনতা এবং মেজাজ পরিবর্তন নিয়ন্ত্রণে কার্যকরী উপায় খুঁজে পেয়েছেন কি?",
+      author: "অনামিকা",
       authorId: "A1",
-      timestamp: "2 hours ago",
+      timestamp: "২ ঘন্টা আগে",
       likes: 24,
       comments: 8,
       category: "PCOS",
-      tags: ["hormones", "mood", "treatment"],
+      tags: ["হরমোন", "মেজাজ", "চিকিৎসা"],
     },
     {
       id: 2,
-      title: "Pregnancy anxiety during first trimester",
+      title: "প্রথম ট্রাইমেস্টারে গর্ভাবস্থার উদ্বেগ",
       content:
-        "I'm 8 weeks pregnant and constantly worried about miscarriage. This is my first pregnancy after a loss last year. How do you manage the anxiety during early pregnancy?",
-      author: "Anonymous",
+        "আমি ৮ সপ্তাহের গর্ভবতী এবং গর্ভপাত নিয়ে অবিরাম চিন্তিত। গত বছরের একটি ক্ষতির পর এটা আমার প্রথম গর্ভাবস্থা। প্রারম্ভিক গর্ভাবস্থায় উদ্বেগ কীভাবে নিয়ন্ত্রণ করবেন?",
+      author: "অনামিকা",
       authorId: "A2",
-      timestamp: "5 hours ago",
+      timestamp: "৫ ঘন্টা আগে",
       likes: 32,
       comments: 15,
-      category: "Pregnancy",
-      tags: ["anxiety", "first trimester", "support"],
+      category: "গর্ভাবস্থা",
+      tags: ["উদ্বেগ", "প্রথম ট্রাইমেস্টার", "সহায়তা"],
     },
     {
       id: 3,
-      title: "Irregular periods after stopping birth control",
+      title: "জন্মনিরোধক বন্ধ করার পর অনিয়মিত পিরিয়ড",
       content:
-        "It's been 3 months since I stopped taking birth control pills, and my periods are still very irregular. Is this normal? How long did it take for your cycle to regulate?",
-      author: "Anonymous",
+        "জন্মনিরোধক বড়ি বন্ধ করার ৩ মাস পরেও আমার পিরিয়ড অনিয়মিত। এটা কি স্বাভাবিক? আপনার চক্র স্বাভাবিক হতে কত সময় লেগেছিল?",
+      author: "অনামিকা",
       authorId: "A3",
-      timestamp: "Yesterday",
+      timestamp: "গতকাল",
       likes: 18,
       comments: 12,
-      category: "Menstrual Health",
-      tags: ["birth control", "periods", "hormones"],
+      category: "মাসিক স্বাস্থ্য",
+      tags: ["জন্মনিরোধক", "পিরিয়ড", "হরমোন"],
     },
     {
       id: 4,
-      title: "Postpartum depression resources",
+      title: "প্রসবোত্তর বিষণ্নতা সম্পদ",
       content:
-        "I think I might be experiencing postpartum depression. I feel disconnected from my baby and constantly exhausted beyond just normal new parent tiredness. What resources helped you?",
-      author: "Anonymous",
+        "আমার মনে হয় আমি প্রসবোত্তর বিষণ্নতা অনুভব করছি। আমার শিশুর থেকে বিচ্ছিন্ন বোধ করি এবং সাধারণ নতুন পিতামাতার ক্লান্তির বাইরেও অবিরাম ক্লান্ত। কোন সম্পদগুলো সাহায্য করেছে?",
+      author: "অনামিকা",
       authorId: "A4",
-      timestamp: "2 days ago",
+      timestamp: "২ দিন আগে",
       likes: 45,
       comments: 23,
-      category: "Mental Health",
-      tags: ["postpartum", "depression", "resources"],
+      category: "মানসিক স্বাস্থ্য",
+      tags: ["প্রসবোত্তর", "বিষণ্নতা", "সম্পদ"],
     },
     {
       id: 5,
-      title: "Endometriosis pain management",
+      title: "এন্ডোমেট্রিওসিস ব্যথা ব্যবস্থাপনা",
       content:
-        "The pain from my endometriosis has been getting worse lately. Pain medication isn't helping much anymore. Has anyone found alternative treatments or management techniques that actually work?",
-      author: "Anonymous",
+        "এন্ডোমেট্রিওসিসের ব্যথা সম্প্রতি খারাপ হচ্ছে। ব্যথার ওষুধ আর তেমন সাহায্য করছে না। বিকল্প চিকিৎসা বা ব্যবস্থাপনা কৌশল খুঁজে পেয়েছেন কি?",
+      author: "অনামিকা",
       authorId: "A5",
-      timestamp: "3 days ago",
+      timestamp: "৩ দিন আগে",
       likes: 36,
       comments: 19,
-      category: "Endometriosis",
-      tags: ["pain", "treatment", "chronic illness"],
+      category: "এন্ডোমেট্রিওসিস",
+      tags: ["ব্যথা", "চিকিৎসা", "দীর্ঘস্থায়ী রোগ"],
     },
-  ]
+  ];
 
   // Filter posts based on active tab and search query
   const filteredPosts = posts.filter((post) => {
-    const matchesTab = activeTab === "all" || post.category.toLowerCase() === activeTab.toLowerCase()
+    const matchesTab =
+      activeTab === "all" ||
+      post.category.toLowerCase() === activeTab.toLowerCase();
     const matchesSearch =
       searchQuery === "" ||
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      post.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
-    return matchesTab && matchesSearch
-  })
+    return matchesTab && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#f8BBD0] to-[#F48FB1] py-8">
+      <div className="bg-gradient-to-r from-[#9059a1] to-[#683f75] py-8">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-white mb-2">Community Forum</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">কমিউনিটি ফোরাম</h1>
           <p className="text-white opacity-90">
-            Connect with others, share experiences, and get support in a safe, anonymous environment
+            নিরাপদ, অনামিক পরিবেশে অন্যদের সাথে সংযুক্ত হন, অভিজ্ঞতা শেয়ার করুন
+            এবং সহায়তা পান
           </p>
         </div>
       </div>
@@ -127,29 +156,34 @@ export default function CommunityPage() {
             <Card className="shadow-md">
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
-                  <Shield className="mr-2 h-5 w-5 text-[#F48FB1]" />
-                  Community Guidelines
+                  <Shield className="mr-2 h-5 w-5 text-[#9059a1]" />
+                  কমিউনিটি নির্দেশিকা
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 text-sm">
-                  <p>Our community is a safe space for everyone. Please remember to:</p>
+                  <p>
+                    আমাদের কমিউনিটি সবার জন্য নিরাপদ স্থান। অনুগ্রহ করে মনে
+                    রাখবেন:
+                  </p>
                   <ul className="space-y-1">
                     <li className="flex items-start">
-                      <span className="bg-[#f8BBD0] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
-                      <span>Be respectful and supportive</span>
+                      <span className="bg-[#9059a1] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
+                      <span>সবাইকে সম্মান ও সহায়তা করুন</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-[#f8BBD0] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
-                      <span>Protect your privacy and others'</span>
+                      <span className="bg-[#9059a1] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
+                      <span>আপনার এবং অন্যদের গোপনীয়তা রক্ষা করুন</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-[#f8BBD0] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
-                      <span>Avoid medical advice; share experiences only</span>
+                      <span className="bg-[#9059a1] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
+                      <span>
+                        চিকিৎসা পরামর্শ এড়িয়ে চলুন; শুধু অভিজ্ঞতা শেয়ার করুন
+                      </span>
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-[#f8BBD0] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
-                      <span>Report inappropriate content</span>
+                      <span className="bg-[#9059a1] rounded-full w-1.5 h-1.5 mr-2 mt-1.5"></span>
+                      <span>অনুপযুক্ত কন্টেন্ট রিপোর্ট করুন</span>
                     </li>
                   </ul>
                 </div>
@@ -158,7 +192,7 @@ export default function CommunityPage() {
 
             <Card className="shadow-md">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base">Popular Topics</CardTitle>
+                <CardTitle className="text-base">জনপ্রিয় বিষয়</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -169,43 +203,53 @@ export default function CommunityPage() {
                   >
                     <span className="w-2 h-2 rounded-full bg-purple-400 mr-2"></span>
                     PCOS
-                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">24</Badge>
+                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">
+                      24
+                    </Badge>
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full justify-start text-left"
-                    onClick={() => setActiveTab("Pregnancy")}
+                    onClick={() => setActiveTab("গর্ভাবস্থা")}
                   >
                     <span className="w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
-                    Pregnancy
-                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">18</Badge>
+                    গর্ভাবস্থা
+                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">
+                      18
+                    </Badge>
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full justify-start text-left"
-                    onClick={() => setActiveTab("Menstrual Health")}
+                    onClick={() => setActiveTab("মাসিক স্বাস্থ্য")}
                   >
                     <span className="w-2 h-2 rounded-full bg-pink-400 mr-2"></span>
-                    Menstrual Health
-                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">15</Badge>
+                    মাসিক স্বাস্থ্য
+                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">
+                      15
+                    </Badge>
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full justify-start text-left"
-                    onClick={() => setActiveTab("Mental Health")}
+                    onClick={() => setActiveTab("মানসিক স্বাস্থ্য")}
                   >
                     <span className="w-2 h-2 rounded-full bg-green-400 mr-2"></span>
-                    Mental Health
-                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">12</Badge>
+                    মানসিক স্বাস্থ্য
+                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">
+                      12
+                    </Badge>
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full justify-start text-left"
-                    onClick={() => setActiveTab("Endometriosis")}
+                    onClick={() => setActiveTab("এন্ডোমেট্রিওসিস")}
                   >
                     <span className="w-2 h-2 rounded-full bg-red-400 mr-2"></span>
-                    Endometriosis
-                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">9</Badge>
+                    এন্ডোমেট্রিওসিস
+                    <Badge className="ml-auto bg-gray-100 text-gray-600 hover:bg-gray-100">
+                      9
+                    </Badge>
                   </Button>
                 </div>
               </CardContent>
@@ -213,30 +257,30 @@ export default function CommunityPage() {
 
             <Card className="shadow-md">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base">Community Stats</CardTitle>
+                <CardTitle className="text-base">কমিউনিটি পরিসংখ্যান</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <Users className="h-4 w-4 text-[#F48FB1] mr-2" />
-                      <span className="text-sm">Members</span>
+                      <Users className="h-4 w-4 text-[#9059a1] mr-2" />
+                      <span className="text-sm">সদস্য</span>
                     </div>
-                    <span className="font-medium">5,280</span>
+                    <span className="font-medium">৫,২৮০</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <MessageCircle className="h-4 w-4 text-[#F48FB1] mr-2" />
-                      <span className="text-sm">Posts</span>
+                      <MessageCircle className="h-4 w-4 text-[#9059a1] mr-2" />
+                      <span className="text-sm">পোস্ট</span>
                     </div>
-                    <span className="font-medium">1,342</span>
+                    <span className="font-medium">১,৩৪২</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <Heart className="h-4 w-4 text-[#F48FB1] mr-2" />
-                      <span className="text-sm">Supportive Reactions</span>
+                      <Heart className="h-4 w-4 text-[#9059a1] mr-2" />
+                      <span className="text-sm">সহায়ক প্রতিক্রিয়া</span>
                     </div>
-                    <span className="font-medium">8,976</span>
+                    <span className="font-medium">৮,৯৭৬</span>
                   </div>
                 </div>
               </CardContent>
@@ -250,7 +294,7 @@ export default function CommunityPage() {
               <div className="relative flex-grow">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="Search discussions..."
+                  placeholder="আলোচনা অনুসন্ধান করুন..."
                   className="pl-10"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -259,69 +303,93 @@ export default function CommunityPage() {
               <div className="flex gap-2">
                 <Button variant="outline" className="flex items-center gap-1">
                   <Filter className="h-4 w-4" />
-                  <span>Filter</span>
+                  <span>ফিল্টার</span>
                 </Button>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0] flex items-center gap-1">
+                    <Button className="bg-[#9059a1] hover:bg-[#683f75] flex items-center gap-1">
                       <Plus className="h-4 w-4" />
-                      <span>New Post</span>
+                      <span>নতুন পোস্ট</span>
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[550px]">
                     <DialogHeader>
-                      <DialogTitle>Create New Post</DialogTitle>
+                      <DialogTitle>নতুন পোস্ট তৈরি করুন</DialogTitle>
                       <DialogDescription>
-                        Share your experience or ask a question. Your post will be anonymous.
+                        আপনার অভিজ্ঞতা শেয়ার করুন বা প্রশ্ন করুন। পোস্টটি
+                        অনামিকভাবে প্রকাশিত হবে।
                       </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                       <div className="space-y-2">
-                        <Label htmlFor="post-title">Title</Label>
-                        <Input id="post-title" placeholder="Enter a clear, specific title" />
+                        <Label htmlFor="post-title">শিরোনাম</Label>
+                        <Input
+                          id="post-title"
+                          placeholder="একটি স্পষ্ট, নির্দিষ্ট শিরোনাম লিখুন"
+                        />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="post-category">Category</Label>
+                        <Label htmlFor="post-category">বিষয়শ্রেণী</Label>
                         <Select>
                           <SelectTrigger id="post-category">
-                            <SelectValue placeholder="Select a category" />
+                            <SelectValue placeholder="একটি বিষয়শ্রেণী নির্বাচন করুন" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="PCOS">PCOS</SelectItem>
-                            <SelectItem value="Pregnancy">Pregnancy</SelectItem>
-                            <SelectItem value="Menstrual Health">Menstrual Health</SelectItem>
-                            <SelectItem value="Mental Health">Mental Health</SelectItem>
-                            <SelectItem value="Endometriosis">Endometriosis</SelectItem>
-                            <SelectItem value="General">General</SelectItem>
+                            <SelectItem value="গর্ভাবস্থা">
+                              গর্ভাবস্থা
+                            </SelectItem>
+                            <SelectItem value="মাসিক স্বাস্থ্য">
+                              মাসিক স্বাস্থ্য
+                            </SelectItem>
+                            <SelectItem value="মানসিক স্বাস্থ্য">
+                              মানসিক স্বাস্থ্য
+                            </SelectItem>
+                            <SelectItem value="এন্ডোমেট্রিওসিস">
+                              এন্ডোমেট্রিওসিস
+                            </SelectItem>
+                            <SelectItem value="সাধারণ">সাধারণ</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="post-content">Your Post</Label>
+                        <Label htmlFor="post-content">আপনার পোস্ট</Label>
                         <Textarea
                           id="post-content"
-                          placeholder="Share your experience or question..."
+                          placeholder="আপনার অভিজ্ঞতা বা প্রশ্ন শেয়ার করুন..."
                           className="min-h-[150px]"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="post-tags">Tags (comma separated)</Label>
-                        <Input id="post-tags" placeholder="e.g., symptoms, treatment, support" />
+                        <Label htmlFor="post-tags">
+                          ট্যাগ (কমা দ্বারা পৃথক করুন)
+                        </Label>
+                        <Input
+                          id="post-tags"
+                          placeholder="যেমন: লক্ষণ, চিকিৎসা, সহায়তা"
+                        />
                       </div>
                       <div className="flex items-start space-x-2">
                         <AlertCircle className="h-4 w-4 text-amber-500 mt-0.5" />
                         <p className="text-xs text-gray-500">
-                          Remember that while your username will be anonymous, you should still be mindful of sharing
-                          personal details that might identify you.
+                          মনে রাখবেন যদিও আপনার ব্যবহারকারীনাম অনামিক থাকবে,
+                          তবুও আপনার ব্যক্তিগত বিবরণ শেয়ার করার সময় সতর্ক
+                          থাকুন।
                         </p>
                       </div>
                     </div>
                     <DialogFooter>
-                      <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                        Cancel
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsDialogOpen(false)}
+                      >
+                        বাতিল করুন
                       </Button>
-                      <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0]" onClick={() => setIsDialogOpen(false)}>
-                        Post Anonymously
+                      <Button
+                        className="bg-[#9059a1] hover:bg-[#683f75]"
+                        onClick={() => setIsDialogOpen(false)}
+                      >
+                        অনামিকভাবে পোস্ট করুন
                       </Button>
                     </DialogFooter>
                   </DialogContent>
@@ -330,14 +398,20 @@ export default function CommunityPage() {
             </div>
 
             {/* Tabs */}
-            <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
+            <Tabs
+              defaultValue="all"
+              value={activeTab}
+              onValueChange={setActiveTab}
+            >
               <TabsList className="grid grid-cols-6">
-                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="all">সব</TabsTrigger>
                 <TabsTrigger value="PCOS">PCOS</TabsTrigger>
-                <TabsTrigger value="Pregnancy">Pregnancy</TabsTrigger>
-                <TabsTrigger value="Menstrual Health">Menstrual</TabsTrigger>
-                <TabsTrigger value="Mental Health">Mental</TabsTrigger>
-                <TabsTrigger value="Endometriosis">Endometriosis</TabsTrigger>
+                <TabsTrigger value="গর্ভাবস্থা">গর্ভাবস্থা</TabsTrigger>
+                <TabsTrigger value="মাসিক স্বাস্থ্য">মাসিক</TabsTrigger>
+                <TabsTrigger value="মানসিক স্বাস্থ্য">মানসিক</TabsTrigger>
+                <TabsTrigger value="এন্ডোমেট্রিওসিস">
+                  এন্ডোমেট্রিওসিস
+                </TabsTrigger>
               </TabsList>
             </Tabs>
 
@@ -345,11 +419,16 @@ export default function CommunityPage() {
             <div className="space-y-4">
               {filteredPosts.length > 0 ? (
                 filteredPosts.map((post) => (
-                  <Card key={post.id} className="shadow-sm hover:shadow-md transition-shadow">
+                  <Card
+                    key={post.id}
+                    className="shadow-sm hover:shadow-md transition-shadow"
+                  >
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <CardTitle className="text-lg">{post.title}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {post.title}
+                          </CardTitle>
                           <CardDescription className="flex items-center mt-1">
                             <Avatar className="h-5 w-5 mr-2">
                               <AvatarFallback className="bg-gray-200 text-gray-600 text-xs">
@@ -363,11 +442,31 @@ export default function CommunityPage() {
                         </div>
                         <Badge
                           className={`
-                            ${post.category === "PCOS" ? "bg-purple-100 text-purple-800 hover:bg-purple-100" : ""}
-                            ${post.category === "Pregnancy" ? "bg-blue-100 text-blue-800 hover:bg-blue-100" : ""}
-                            ${post.category === "Menstrual Health" ? "bg-pink-100 text-pink-800 hover:bg-pink-100" : ""}
-                            ${post.category === "Mental Health" ? "bg-green-100 text-green-800 hover:bg-green-100" : ""}
-                            ${post.category === "Endometriosis" ? "bg-red-100 text-red-800 hover:bg-red-100" : ""}
+                            ${
+                              post.category === "PCOS"
+                                ? "bg-purple-100 text-purple-800 hover:bg-purple-100"
+                                : ""
+                            }
+                            ${
+                              post.category === "গর্ভাবস্থা"
+                                ? "bg-blue-100 text-blue-800 hover:bg-blue-100"
+                                : ""
+                            }
+                            ${
+                              post.category === "মাসিক স্বাস্থ্য"
+                                ? "bg-pink-100 text-pink-800 hover:bg-pink-100"
+                                : ""
+                            }
+                            ${
+                              post.category === "মানসিক স্বাস্থ্য"
+                                ? "bg-green-100 text-green-800 hover:bg-green-100"
+                                : ""
+                            }
+                            ${
+                              post.category === "এন্ডোমেট্রিওসিস"
+                                ? "bg-red-100 text-red-800 hover:bg-red-100"
+                                : ""
+                            }
                           `}
                         >
                           {post.category}
@@ -378,7 +477,11 @@ export default function CommunityPage() {
                       <p className="text-gray-700">{post.content}</p>
                       <div className="flex flex-wrap gap-2 mt-3">
                         {post.tags.map((tag, index) => (
-                          <Badge key={index} variant="outline" className="bg-gray-50 text-gray-700">
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="bg-gray-50 text-gray-700"
+                          >
                             <Tag className="h-3 w-3 mr-1" />
                             {tag}
                           </Badge>
@@ -387,17 +490,25 @@ export default function CommunityPage() {
                     </CardContent>
                     <CardFooter className="flex justify-between pt-2 border-t">
                       <div className="flex space-x-4">
-                        <Button variant="ghost" size="sm" className="text-gray-600 flex items-center gap-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-600 flex items-center gap-1"
+                        >
                           <ThumbsUp className="h-4 w-4" />
                           <span>{post.likes}</span>
                         </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-600 flex items-center gap-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-600 flex items-center gap-1"
+                        >
                           <MessageCircle className="h-4 w-4" />
                           <span>{post.comments}</span>
                         </Button>
                       </div>
-                      <Button variant="link" className="text-[#F48FB1]">
-                        View Discussion
+                      <Button variant="link" className="text-[#9059a1]">
+                        আলোচনা দেখুন
                       </Button>
                     </CardFooter>
                   </Card>
@@ -407,16 +518,20 @@ export default function CommunityPage() {
                   <div className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <Search className="h-8 w-8 text-gray-400" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-1">No posts found</h3>
-                  <p className="text-gray-500 mb-4">Try adjusting your search or filters</p>
+                  <h3 className="text-lg font-medium text-gray-900 mb-1">
+                    কোনো পোস্ট পাওয়া যায়নি
+                  </h3>
+                  <p className="text-gray-500 mb-4">
+                    আপনার অনুসন্ধান বা ফিল্টার সামঞ্জস্য করুন
+                  </p>
                   <Button
                     variant="outline"
                     onClick={() => {
-                      setActiveTab("all")
-                      setSearchQuery("")
+                      setActiveTab("all");
+                      setSearchQuery("");
                     }}
                   >
-                    Clear filters
+                    ফিল্টার সাফ করুন
                   </Button>
                 </div>
               )}
@@ -426,19 +541,23 @@ export default function CommunityPage() {
             <div className="flex justify-center mt-6">
               <div className="flex space-x-1">
                 <Button variant="outline" size="sm" disabled>
-                  Previous
+                  পূর্ববর্তী
                 </Button>
-                <Button variant="outline" size="sm" className="bg-[#f8BBD0] text-[#F48FB1]">
-                  1
-                </Button>
-                <Button variant="outline" size="sm">
-                  2
-                </Button>
-                <Button variant="outline" size="sm">
-                  3
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#9059a1]/20 text-[#9059a1]"
+                >
+                  ১
                 </Button>
                 <Button variant="outline" size="sm">
-                  Next
+                  ২
+                </Button>
+                <Button variant="outline" size="sm">
+                  ৩
+                </Button>
+                <Button variant="outline" size="sm">
+                  পরবর্তী
                 </Button>
               </div>
             </div>
@@ -446,5 +565,5 @@ export default function CommunityPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

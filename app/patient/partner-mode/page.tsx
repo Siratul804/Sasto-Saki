@@ -1,13 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Calendar,
   Copy,
@@ -22,56 +29,73 @@ import {
   FileText,
   Pill,
   Clock,
-} from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function PartnerModePage() {
-  const [linkCopied, setLinkCopied] = useState(false)
-  const [inviteSent, setInviteSent] = useState(false)
-  const [activeTab, setActiveTab] = useState("settings")
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [inviteSent, setInviteSent] = useState(false);
+  const [activeTab, setActiveTab] = useState("settings");
 
   const copyLink = () => {
-    // In a real app, this would copy a unique link to the clipboard
-    setLinkCopied(true)
-    setTimeout(() => setLinkCopied(false), 3000)
-  }
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 3000);
+  };
 
   const sendInvite = () => {
-    // In a real app, this would send an email invitation
-    setInviteSent(true)
-    setTimeout(() => setInviteSent(false), 3000)
-  }
+    setInviteSent(true);
+    setTimeout(() => setInviteSent(false), 3000);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#f8BBD0] to-[#F48FB1] py-8">
+      <div className="bg-[#9059a1] py-8">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-white mb-2">Partner Mode</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">পার্টনার মোড</h1>
           <p className="text-white opacity-90">
-            Share selected health information with your partner in a controlled manner
+            আপনার স্বাস্থ্যের নির্দিষ্ট তথ্য নিয়ন্ত্রিতভাবে ভাগ করুন
           </p>
         </div>
       </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 -mt-6">
-        <Tabs defaultValue="settings" value={activeTab} onValueChange={setActiveTab}>
+        <Tabs
+          defaultValue="settings"
+          value={activeTab}
+          onValueChange={setActiveTab}
+        >
           <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto">
-            <TabsTrigger value="settings" className="flex items-center justify-center gap-2">
-              <User className="h-4 w-4" />
-              <span>Settings</span>
+            <TabsTrigger
+              value="settings"
+              className="flex items-center justify-center gap-2"
+            >
+              <User className="h-4 w-4 text-[#9059a1]" />
+              সেটিংস
             </TabsTrigger>
-            <TabsTrigger value="preview" className="flex items-center justify-center gap-2">
-              <Eye className="h-4 w-4" />
-              <span>Preview</span>
+            <TabsTrigger
+              value="preview"
+              className="flex items-center justify-center gap-2"
+            >
+              <Eye className="h-4 w-4 text-[#9059a1]" />
+              প্রিভিউ
             </TabsTrigger>
-            <TabsTrigger value="partners" className="flex items-center justify-center gap-2">
-              <UserPlus className="h-4 w-4" />
-              <span>Partners</span>
+            <TabsTrigger
+              value="partners"
+              className="flex items-center justify-center gap-2"
+            >
+              <UserPlus className="h-4 w-4 text-[#9059a1]" />
+              পার্টনার
             </TabsTrigger>
           </TabsList>
 
@@ -79,128 +103,134 @@ export default function PartnerModePage() {
           <TabsContent value="settings">
             <Card className="shadow-md">
               <CardHeader>
-                <CardTitle>Partner Mode Settings</CardTitle>
-                <CardDescription>Control what information your partner can access</CardDescription>
+                <CardTitle>পার্টনার মোড সেটিংস</CardTitle>
+                <CardDescription>
+                  আপনার তথ্য কী দেখাবে সেটি নিয়ন্ত্রণ করুন
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 {linkCopied && (
                   <Alert className="mb-6 bg-green-50 border-green-200">
                     <ThumbsUp className="h-4 w-4 text-green-600" />
-                    <AlertTitle className="text-green-800">Link copied!</AlertTitle>
+                    <AlertTitle className="text-green-800">
+                      লিঙ্ক কপি হয়েছে!
+                    </AlertTitle>
                     <AlertDescription className="text-green-700">
-                      You can now share this link with your partner.
+                      এখন আপনি এই লিঙ্কটি ভাগ করতে পারেন।
                     </AlertDescription>
                   </Alert>
                 )}
-
                 {inviteSent && (
                   <Alert className="mb-6 bg-green-50 border-green-200">
                     <ThumbsUp className="h-4 w-4 text-green-600" />
-                    <AlertTitle className="text-green-800">Invitation sent!</AlertTitle>
+                    <AlertTitle className="text-green-800">
+                      আহ্বান পাঠানো হয়েছে!
+                    </AlertTitle>
                     <AlertDescription className="text-green-700">
-                      Your partner will receive an email with instructions to connect.
+                      পার্টনারকে ইমেইল যাচাই লিঙ্ক পাঠানো হয়েছে।
                     </AlertDescription>
                   </Alert>
                 )}
-
                 <div className="space-y-6">
+                  {/* Share Info */}
                   <div className="space-y-4">
-                    <h3 className="font-medium text-gray-800">Share Health Information</h3>
+                    <h3 className="font-medium text-gray-800">
+                      শেয়ার স্বাস্থ্য তথ্য
+                    </h3>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Heart className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="period-cycle">Period Cycle</Label>
+                      {[
+                        { icon: Heart, label: "মাসিক চক্র", id: "period" },
+                        { icon: Moon, label: "মেজাজ ট্র্যাকিং", id: "mood" },
+                        {
+                          icon: Calendar,
+                          label: "নিয়মিত অ্যাপয়েন্টমেন্ট",
+                          id: "appointment",
+                        },
+                        {
+                          icon: FileText,
+                          label: "স্বাস্থ্য প্রতিবেদন",
+                          id: "report",
+                        },
+                        { icon: Pill, label: "ওষুধ", id: "medication" },
+                      ].map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center justify-between"
+                        >
+                          <div className="flex items-center space-x-2">
+                            <item.icon className="h-5 w-5 text-[#9059a1]" />
+                            <Label htmlFor={item.id}>{item.label}</Label>
+                          </div>
+                          <Switch
+                            id={item.id}
+                            defaultChecked={
+                              item.id !== "report" && item.id !== "medication"
+                            }
+                          />
                         </div>
-                        <Switch id="period-cycle" defaultChecked />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Moon className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="mood">Mood Tracking</Label>
-                        </div>
-                        <Switch id="mood" defaultChecked />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Calendar className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="appointments">Upcoming Appointments</Label>
-                        </div>
-                        <Switch id="appointments" defaultChecked />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <FileText className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="reports">Health Reports</Label>
-                        </div>
-                        <Switch id="reports" />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Pill className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="medications">Medications</Label>
-                        </div>
-                        <Switch id="medications" />
-                      </div>
+                      ))}
                     </div>
                   </div>
-
+                  {/* Access Settings */}
                   <div className="space-y-4">
-                    <h3 className="font-medium text-gray-800">Access Settings</h3>
+                    <h3 className="font-medium text-gray-800">
+                      অ্যাক্সেস সেটিংস
+                    </h3>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <Clock className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="access-duration">Access Duration</Label>
+                          <Clock className="h-5 w-5 text-[#9059a1]" />
+                          <Label htmlFor="duration">অ্যাক্সেস সময়কাল</Label>
                         </div>
                         <Select defaultValue="unlimited">
-                          <SelectTrigger id="access-duration" className="w-[180px]">
-                            <SelectValue placeholder="Select duration" />
+                          <SelectTrigger id="duration" className="w-[180px]">
+                            <SelectValue placeholder="সময়কাল নির্বাচন" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="1-month">1 Month</SelectItem>
-                            <SelectItem value="3-months">3 Months</SelectItem>
-                            <SelectItem value="6-months">6 Months</SelectItem>
-                            <SelectItem value="1-year">1 Year</SelectItem>
-                            <SelectItem value="unlimited">Unlimited</SelectItem>
+                            <SelectItem value="1-month">১ মাস</SelectItem>
+                            <SelectItem value="3-months">৩ মাস</SelectItem>
+                            <SelectItem value="6-months">৬ মাস</SelectItem>
+                            <SelectItem value="1-year">১ বছর</SelectItem>
+                            <SelectItem value="unlimited">অসীম</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
-
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <Shield className="h-5 w-5 text-[#F48FB1]" />
-                          <Label htmlFor="revoke-anytime">Revoke Access Anytime</Label>
+                          <Shield className="h-5 w-5 text-[#9059a1]" />
+                          <Label htmlFor="revoke">যেকোনো সময় প্রত্যাহার</Label>
                         </div>
-                        <Switch id="revoke-anytime" defaultChecked />
+                        <Switch id="revoke" defaultChecked />
                       </div>
                     </div>
                   </div>
-
+                  {/* Invite Partner */}
                   <div className="space-y-4">
-                    <h3 className="font-medium text-gray-800">Invite Partner</h3>
+                    <h3 className="font-medium text-gray-800">
+                      পার্টনার আহ্বান
+                    </h3>
                     <div className="space-y-3">
                       <div>
-                        <Label htmlFor="partner-email">Partner's Email</Label>
+                        <Label htmlFor="email">পার্টনার ইমেইল</Label>
                         <div className="flex mt-1">
                           <Input
-                            id="partner-email"
+                            id="email"
                             type="email"
-                            placeholder="Enter your partner's email"
+                            placeholder="ইমেইল লিখুন"
                             className="rounded-r-none"
                           />
-                          <Button onClick={sendInvite} className="rounded-l-none bg-[#F48FB1] hover:bg-[#f8BBD0]">
-                            <Mail className="h-4 w-4 mr-2" /> Invite
+                          <Button
+                            onClick={sendInvite}
+                            className="rounded-l-none bg-[#9059a1] hover:bg-[#683f75]"
+                          >
+                            <Mail className="h-4 w-4 mr-2" /> আহ্বান
                           </Button>
                         </div>
                       </div>
-
                       <div>
-                        <Label htmlFor="share-link">Or Share Link</Label>
+                        <Label htmlFor="share-link">
+                          অথবা লিঙ্ক শেয়ার করুন
+                        </Label>
                         <div className="flex mt-1">
                           <Input
                             id="share-link"
@@ -208,8 +238,11 @@ export default function PartnerModePage() {
                             value="https://womenshealth.app/partner/share/abc123"
                             className="rounded-r-none bg-gray-50"
                           />
-                          <Button onClick={copyLink} className="rounded-l-none bg-[#F48FB1] hover:bg-[#f8BBD0]">
-                            <Copy className="h-4 w-4 mr-2" /> Copy
+                          <Button
+                            onClick={copyLink}
+                            className="rounded-l-none bg-[#9059a1] hover:bg-[#683f75]"
+                          >
+                            <Copy className="h-4 w-4 mr-2" /> কপি
                           </Button>
                         </div>
                       </div>
@@ -219,10 +252,13 @@ export default function PartnerModePage() {
               </CardContent>
               <CardFooter className="flex justify-between border-t pt-6">
                 <Link href="/patient/dashboard">
-                  <Button variant="outline">Back to Dashboard</Button>
+                  <Button variant="outline">ড্যাশবোর্ডে ফিরে যান</Button>
                 </Link>
-                <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0]" onClick={() => setActiveTab("preview")}>
-                  Preview Partner View
+                <Button
+                  className="bg-[#9059a1] hover:bg-[#683f75]"
+                  onClick={() => setActiveTab("preview")}
+                >
+                  প্রিভিউ দেখুন
                 </Button>
               </CardFooter>
             </Card>
@@ -232,75 +268,91 @@ export default function PartnerModePage() {
           <TabsContent value="preview">
             <Card className="shadow-md">
               <CardHeader>
-                <CardTitle>Partner View Preview</CardTitle>
-                <CardDescription>This is what your partner will see</CardDescription>
+                <CardTitle>পার্টনার প্রিভিউ</CardTitle>
+                <CardDescription>
+                  এভাবে আপনার পার্টনার দেখতে পাবে
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  <div className="p-4 bg-[#f8BBD0]/10 rounded-lg border border-[#f8BBD0]">
-                    <h3 className="font-medium text-[#F48FB1] mb-3 flex items-center">
-                      <Heart className="mr-2 h-5 w-5" /> Period Cycle
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Current Cycle Day:</span>
-                        <span className="font-medium">Day 18 of 28</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Next Period Expected:</span>
-                        <span className="font-medium">May 12, 2025</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Fertile Window:</span>
-                        <span className="font-medium">May 22-26, 2025</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 bg-[#f8BBD0]/10 rounded-lg border border-[#f8BBD0]">
-                    <h3 className="font-medium text-[#F48FB1] mb-3 flex items-center">
-                      <Moon className="mr-2 h-5 w-5" /> Mood Tracking
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Today's Mood:</span>
-                        <span className="font-medium">Calm</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Weekly Average:</span>
-                        <span className="font-medium">Good</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 bg-[#f8BBD0]/10 rounded-lg border border-[#f8BBD0]">
-                    <h3 className="font-medium text-[#F48FB1] mb-3 flex items-center">
-                      <Calendar className="mr-2 h-5 w-5" /> Upcoming Appointments
-                    </h3>
-                    <div className="p-3 bg-white rounded-lg border">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="font-medium">Dr. Ayesha Rahman</h4>
-                          <p className="text-sm text-gray-600">Gynecologist</p>
+                  {[
+                    {
+                      icon: Heart,
+                      title: "মাসিক চক্র",
+                      items: [
+                        ["চলতি দিন", "দিন ১৮/২৮"],
+                        ["পরবর্তী মাসিক", "১২ মে, ২০২৫"],
+                        ["উর্বর উইন্ডো", "২২-২৬ মে, ২০২৫"],
+                      ],
+                    },
+                    {
+                      icon: Moon,
+                      title: "মেজাজ ট্র্যাকিং",
+                      items: [
+                        ["আজকের মেজাজ", "শান্ত"],
+                        ["সাপ্তাহিক গড়", "ভালো"],
+                      ],
+                    },
+                    {
+                      icon: Calendar,
+                      title: "নতুন অ্যাপয়েন্টমেন্ট",
+                      component: (
+                        <div className="p-3 bg-white rounded-lg border">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <h4 className="font-medium">ডাঃ আইসা রহমান</h4>
+                              <p className="text-sm text-gray-600">
+                                গাইনেকোলজিস্ট
+                              </p>
+                            </div>
+                            <span className="text-xs bg-[#9059a1] text-white px-2 py-1 rounded-full">
+                              ভিডিও
+                            </span>
+                          </div>
+                          <div className="flex items-center text-sm text-gray-600">
+                            <Calendar className="mr-2 h-4 w-4" /> কাল
+                            <Clock className="ml-3 mr-2 h-4 w-4" /> 10:30 AM
+                          </div>
                         </div>
-                        <span className="text-xs bg-[#f8BBD0] text-[#F48FB1] px-2 py-1 rounded-full">Video</span>
-                      </div>
-                      <div className="flex items-center text-sm text-gray-600">
-                        <Calendar className="mr-2 h-4 w-4" />
-                        <span>Tomorrow</span>
-                        <Clock className="ml-3 mr-2 h-4 w-4" />
-                        <span>10:30 AM</span>
-                      </div>
+                      ),
+                    },
+                  ].map((section, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 bg-[#9059a1]/10 rounded-lg border border-[#9059a1]"
+                    >
+                      <h3 className="font-medium text-[#9059a1] mb-3 flex items-center">
+                        <section.icon className="mr-2 h-5 w-5" />{" "}
+                        {section.title}
+                      </h3>
+                      {section.items ? (
+                        <div className="space-y-2">
+                          {section.items.map(([label, val], i) => (
+                            <div key={i} className="flex justify-between">
+                              <span className="text-gray-600">{label}:</span>
+                              <span className="font-medium">{val}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        section.component
+                      )}
                     </div>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t pt-6">
-                <Button variant="outline" onClick={() => setActiveTab("settings")}>
-                  Back to Settings
+                <Button
+                  variant="outline"
+                  onClick={() => setActiveTab("settings")}
+                >
+                  সেটিংসে ফিরে যান
                 </Button>
-                <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0]" onClick={() => setActiveTab("partners")}>
-                  Manage Partners
+                <Button
+                  className="bg-[#9059a1] hover:bg-[#683f75]"
+                  onClick={() => setActiveTab("partners")}
+                >
+                  পার্টনার পরিচালনা
                 </Button>
               </CardFooter>
             </Card>
@@ -310,87 +362,89 @@ export default function PartnerModePage() {
           <TabsContent value="partners">
             <Card className="shadow-md">
               <CardHeader>
-                <CardTitle>Manage Partners</CardTitle>
-                <CardDescription>Control who has access to your health information</CardDescription>
+                <CardTitle>পার্টনার পরিচালনা</CardTitle>
+                <CardDescription>
+                  কার কাছে আপনার তথ্য শেয়ার করবেন সেটি নিয়ন্ত্রণ করুন
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  <div className="p-4 bg-white rounded-lg border">
-                    <div className="flex justify-between items-start">
+                  {[
+                    {
+                      name: "রাহুল খান",
+                      email: "rahul.khan@example.com",
+                      status: "Active",
+                      date: "১০ এপ্রিল, ২০২৫",
+                    },
+                    {
+                      name: "প্রিয়া শর্মা",
+                      email: "priya.s@example.com",
+                      status: "Pending",
+                      date: "১ মে, ২০২৫",
+                    },
+                  ].map((p, i) => (
+                    <div
+                      key={i}
+                      className="p-4 bg-white rounded-lg border flex justify-between items-start"
+                    >
                       <div className="flex items-start">
                         <Avatar className="h-10 w-10 mr-3">
-                          <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Rahul Khan" />
-                          <AvatarFallback>RK</AvatarFallback>
+                          <AvatarFallback>
+                            {p.name.split(" ")[0][0]}
+                            {p.name.split(" ")[1][0]}
+                          </AvatarFallback>
                         </Avatar>
                         <div>
-                          <h4 className="font-medium">Rahul Khan</h4>
-                          <p className="text-sm text-gray-600">rahul.khan@example.com</p>
+                          <h4 className="font-medium">{p.name}</h4>
+                          <p className="text-sm text-gray-600">{p.email}</p>
                           <div className="flex items-center mt-1">
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                              Active
+                            <Badge
+                              variant="outline"
+                              className={`bg-${
+                                p.status === "Active" ? "green" : "yellow"
+                              }-50 text-${
+                                p.status === "Active" ? "green" : "yellow"
+                              }-700`}
+                            >
+                              {p.status}
                             </Badge>
-                            <span className="text-xs text-gray-500 ml-2">Since April 10, 2025</span>
+                            <span className="text-xs text-gray-500 ml-2">
+                              Since {p.date}
+                            </span>
                           </div>
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="h-8">
+                        <Button variant="outline" size="sm">
                           Edit
                         </Button>
-                        <Button variant="destructive" size="sm" className="h-8">
-                          Revoke
+                        <Button variant="destructive" size="sm">
+                          {p.status === "Active" ? "Revoke" : "Cancel"}
                         </Button>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="p-4 bg-white rounded-lg border">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-start">
-                        <Avatar className="h-10 w-10 mr-3">
-                          <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Priya Sharma" />
-                          <AvatarFallback>PS</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <h4 className="font-medium">Priya Sharma</h4>
-                          <p className="text-sm text-gray-600">priya.s@example.com</p>
-                          <div className="flex items-center mt-1">
-                            <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
-                              Pending
-                            </Badge>
-                            <span className="text-xs text-gray-500 ml-2">Invited on May 1, 2025</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="h-8">
-                          Resend
-                        </Button>
-                        <Button variant="destructive" size="sm" className="h-8">
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
+                  ))}
                   <div className="text-center">
                     <Button
                       variant="outline"
                       className="flex items-center gap-2"
                       onClick={() => setActiveTab("settings")}
                     >
-                      <UserPlus className="h-4 w-4" />
-                      <span>Invite New Partner</span>
+                      <UserPlus className="h-4 w-4 text-[#9059a1]" />
+                      নতুন পার্টনার আহ্বান
                     </Button>
                   </div>
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t pt-6">
                 <Link href="/patient/dashboard">
-                  <Button variant="outline">Back to Dashboard</Button>
+                  <Button variant="outline">ড্যাশবোর্ডে ফিরে যান</Button>
                 </Link>
-                <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0]" onClick={() => setActiveTab("settings")}>
-                  Update Settings
+                <Button
+                  className="bg-[#9059a1] hover:bg-[#683f75]"
+                  onClick={() => setActiveTab("settings")}
+                >
+                  সেটিংস আপডেট করুন
                 </Button>
               </CardFooter>
             </Card>
@@ -398,5 +452,5 @@ export default function PartnerModePage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
