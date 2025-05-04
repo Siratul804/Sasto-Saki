@@ -125,7 +125,7 @@ export default function MentalHealthChatbot() {
                 <div className="flex items-center">
                   <Avatar className="h-10 w-10 mr-3">
                     <AvatarImage
-                      src="/placeholder.svg?height=40&width=40"
+                      src="https://img.freepik.com/free-vector/hand-drawn-empowered-muslim-woman-doctor_23-2149741563.jpg?t=st=1746364782~exp=1746368382~hmac=c24cefbb5be8fe87fa99cc561f842fb657129f7a1680558b4e384743501b602d&w=1380"
                       alt="AI"
                     />
                     <AvatarFallback className="bg-[#9059a1] text-white">
@@ -198,7 +198,7 @@ export default function MentalHealthChatbot() {
                 <div className="flex items-center">
                   <Avatar className="h-8 w-8 mr-2">
                     <AvatarImage
-                      src="/placeholder.svg?height=32&width=32"
+                      src="https://img.freepik.com/free-vector/hand-drawn-empowered-muslim-woman-doctor_23-2149741563.jpg?t=st=1746364782~exp=1746368382~hmac=c24cefbb5be8fe87fa99cc561f842fb657129f7a1680558b4e384743501b602d&w=1380"
                       alt="AI"
                     />
                     <AvatarFallback className="bg-[#9059a1] text-white">
@@ -293,7 +293,7 @@ export default function MentalHealthChatbot() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                  className="flex-grow h-10"
+                  className="flex-grow h-10 w-[105vh] "
                 />
                 <Button
                   size="icon"

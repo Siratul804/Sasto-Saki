@@ -87,7 +87,7 @@ export default function ConsultationPage() {
                     <div className="relative w-full h-96 bg-gray-900 rounded-lg overflow-hidden">
                       <div className="w-full h-full flex items-center justify-center">
                         <img
-                          src="/placeholder.svg?height=400&width=600"
+                          src="https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827776.jpg?t=st=1746365126~exp=1746368726~hmac=c98cd7f329e3a3cd25fa3879110bfaf555f2ef062cbfa505ba02052270be2e86&w=826"
                           alt="ডাক্তারের ভিডিও"
                           className="w-full h-full object-cover"
                         />
@@ -103,7 +103,7 @@ export default function ConsultationPage() {
                           </div>
                         ) : (
                           <img
-                            src="/placeholder.svg?height=100&width=150"
+                            src="https://img.freepik.com/free-photo/sick-woman-with-nasal-oxygen-tube-looking-into-camera-resting-bed-recovering-after-respiratory-surgery_482257-2203.jpg?t=st=1746365005~exp=1746368605~hmac=26fc34c9f1186adf2d86f055cf088d8f11fdb8e5088575e535a2b73f1885e50f&w=740"
                             alt="আপনার ভিডিও"
                             className="w-full h-full object-cover"
                           />
@@ -181,7 +181,7 @@ export default function ConsultationPage() {
                       <div className="flex items-start">
                         <Avatar className="h-12 w-12 mr-4">
                           <AvatarImage
-                            src="/placeholder.svg?height=50&width=50"
+                            src="https://img.freepik.com/free-photo/portrait-female-pediatrician-work_23-2151686800.jpg?t=st=1746364816~exp=1746368416~hmac=e1ec4bea50ba46c1ea60d645b9de59697e30732bdd1409e43d78a8a2307ba878&w=2000"
                             alt="ডাঃ আইসা রহমান"
                           />
                           <AvatarFallback>আইআর</AvatarFallback>

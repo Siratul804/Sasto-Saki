@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
+import logo from "@/public/logo.png";
 import { useMobile } from "@/hooks/use-mobile";
 import {
   DropdownMenu,
@@ -11,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 export default function Navbar() {
   const isMobile = useMobile();
@@ -44,21 +46,20 @@ export default function Navbar() {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-2 ">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold text-[#9059a1]">
-              স্বাস্থ্য সখী
-            </span>
-          </Link>
+          <Image src={logo} alt="Logo" className="h-16 w-auto" />
 
           {/* Language Toggle */}
           <div className="flex items-center ml-4 mr-auto">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <Globe className="h-5 w-5 text-[#bengali]" />
+                  <Globe
+                    className="h-10 w-10 text-[#bengali]"
+                    color="#9059a1"
+                  />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
