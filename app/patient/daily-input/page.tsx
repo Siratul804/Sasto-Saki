@@ -22,7 +22,7 @@ export default function DailyInput() {
   const [periodFlow, setPeriodFlow] = useState("none")
   const [symptoms, setSymptoms] = useState("")
 
-  const moodLabels = ["Very Low", "Low", "Neutral", "Good", "Excellent"]
+  const moodLabels = ["খুব খারাপ", "খারাপ", "নিরপেক্ষ", "ভালো", "চমৎকার"]
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,7 +36,7 @@ export default function DailyInput() {
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#f8BBD0] to-[#F48FB1] py-8">
+      <div className="bg-gradient-to-r from-[#ba98c4] to-[#9059a1] py-8">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold text-white mb-2">Daily Health Input</h1>
           <p className="text-white opacity-90">
@@ -63,8 +63,8 @@ export default function DailyInput() {
             {submitted ? (
               <Alert className="bg-green-50 border-green-200">
                 <ThumbsUp className="h-4 w-4 text-green-600" />
-                <AlertTitle className="text-green-800">Success!</AlertTitle>
-                <AlertDescription className="text-green-700">
+                <AlertTitle className="text-purple-800">Success!</AlertTitle>
+                <AlertDescription className="text-purple-700">
                   Your health data has been recorded. We'll update your insights based on this information.
                 </AlertDescription>
               </Alert>
@@ -74,26 +74,26 @@ export default function DailyInput() {
                   <TabsList className="grid grid-cols-4 mb-6">
                     <TabsTrigger value="period" className="flex items-center">
                       <Heart className="mr-2 h-4 w-4" />
-                      <span className="hidden sm:inline">Period</span>
+                      <span className="hidden sm:inline">মাসিক</span>
                     </TabsTrigger>
                     <TabsTrigger value="mood" className="flex items-center">
                       <Moon className="mr-2 h-4 w-4" />
-                      <span className="hidden sm:inline">Mood</span>
+                      <span className="hidden sm:inline">মেজাজ</span>
                     </TabsTrigger>
                     <TabsTrigger value="water" className="flex items-center">
                       <Droplets className="mr-2 h-4 w-4" />
-                      <span className="hidden sm:inline">Water</span>
+                      <span className="hidden sm:inline">জল</span>
                     </TabsTrigger>
                     <TabsTrigger value="medication" className="flex items-center">
                       <Pill className="mr-2 h-4 w-4" />
-                      <span className="hidden sm:inline">Medication</span>
+                      <span className="hidden sm:inline">ঔষধ</span>
                     </TabsTrigger>
                   </TabsList>
 
                   {/* Period Tab */}
                   <TabsContent value="period" className="space-y-4">
                     <div>
-                      <Label htmlFor="period-flow">Period Flow</Label>
+                      <Label htmlFor="period-flow">পিরিয়ড ফ্লো</Label>
                       <Select value={periodFlow} onValueChange={setPeriodFlow}>
                         <SelectTrigger id="period-flow">
                           <SelectValue placeholder="Select flow intensity" />
@@ -131,7 +131,7 @@ export default function DailyInput() {
                   {/* Mood Tab */}
                   <TabsContent value="mood" className="space-y-4">
                     <div>
-                      <Label>How are you feeling today?</Label>
+                      <Label>আজ কেমন লাগছে?</Label>
                       <div className="mt-6 mb-2">
                         <Slider
                           value={[moodLevel]}
@@ -143,7 +143,7 @@ export default function DailyInput() {
                       </div>
                       <div className="flex justify-between text-sm text-gray-500 mt-1">
                         {moodLabels.map((label, index) => (
-                          <span key={index} className={`${index === moodLevel ? "text-[#F48FB1] font-medium" : ""}`}>
+                          <span key={index} className={`${index === moodLevel ? "text-[#9059a1] font-medium" : ""}`}>
                             {label}
                           </span>
                         ))}
@@ -151,16 +151,16 @@ export default function DailyInput() {
                     </div>
 
                     <div>
-                      <Label htmlFor="mood-notes">Notes (optional)</Label>
+                      <Label htmlFor="mood-notes">নোট (ঐচ্ছিক)</Label>
                       <Textarea id="mood-notes" placeholder="Any specific thoughts or feelings..." />
                     </div>
 
                     <div className="flex justify-between">
                       <Button type="button" variant="outline" onClick={() => setActiveTab("water")}>
-                        Skip
+                      এড়িয়ে যান
                       </Button>
                       <Button type="button" onClick={() => setActiveTab("water")}>
-                        Next
+                      পরবর্তী
                       </Button>
                     </div>
                   </TabsContent>
@@ -168,7 +168,7 @@ export default function DailyInput() {
                   {/* Water Tab */}
                   <TabsContent value="water" className="space-y-4">
                     <div>
-                      <Label>Water Intake (Liters)</Label>
+                      <Label>পানি গ্রহণ (লিটার)</Label>
                       <div className="flex items-center mt-4">
                         <Slider
                           value={[waterIntake]}
@@ -181,7 +181,7 @@ export default function DailyInput() {
                         <div className="w-16 text-center font-medium text-lg">{waterIntake}L</div>
                       </div>
                       <div className="mt-2 text-sm text-gray-500">
-                        <p>Recommended daily intake: 2.5L</p>
+                        <p>প্রস্তাবিত দৈনিক গ্রহণ: ২.৫ লিটার</p>
                       </div>
                     </div>
 
@@ -200,7 +200,7 @@ export default function DailyInput() {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
                         <div className="flex items-center">
-                          <Pill className="h-5 w-5 text-[#F48FB1] mr-3" />
+                          <Pill className="h-5 w-5 text-[#9059a1] mr-3" />
                           <div>
                             <p className="font-medium">Prenatal Vitamin</p>
                             <p className="text-sm text-gray-500">1 tablet, morning</p>
@@ -213,7 +213,7 @@ export default function DailyInput() {
 
                       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
                         <div className="flex items-center">
-                          <Pill className="h-5 w-5 text-[#F48FB1] mr-3" />
+                          <Pill className="h-5 w-5 text-[#9059a1] mr-3" />
                           <div>
                             <p className="font-medium">Iron Supplement</p>
                             <p className="text-sm text-gray-500">1 tablet, evening with food</p>
@@ -240,11 +240,11 @@ export default function DailyInput() {
           </CardContent>
           <CardFooter className="flex justify-between border-t pt-6">
             <Link href="/patient/dashboard">
-              <Button variant="outline">Back to Dashboard</Button>
+              <Button variant="outline">ড্যাশবোর্ডে ফিরে যান</Button>
             </Link>
             <Link href="/patient/reports">
-              <Button variant="link" className="text-[#F48FB1]">
-                View Health Reports
+              <Button variant="link" className="text-[#9059a1]">
+              স্বাস্থ্য রিপোর্ট দেখুন
               </Button>
             </Link>
           </CardFooter>
@@ -254,14 +254,14 @@ export default function DailyInput() {
         <Card className="shadow-md mt-6">
           <CardHeader>
             <CardTitle className="flex items-center">
-              <Heart className="mr-2 h-5 w-5 text-[#F48FB1]" />
-              AI Health Insights
+              <Heart className="mr-2 h-5 w-5 text-[#9059a1]" />
+              এআই হেলথ ইনসাইটস
             </CardTitle>
-            <CardDescription>Based on your recent health data</CardDescription>
+            <CardDescription>আপনার সাম্প্রতিক স্বাস্থ্য তথ্যের উপর ভিত্তি করে</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="p-4 bg-[#f8BBD0]/10 rounded-lg border border-[#f8BBD0]">
-              <h3 className="font-medium text-[#F48FB1] mb-2">Daily Recommendation</h3>
+            <div className="p-4 bg-[#f8BBD0]/10 rounded-lg border border-[#9059a1]">
+              <h3 className="font-medium text-[#9059a1] mb-2">দৈনিক সুপারিশ</h3>
               <p className="text-gray-700">
                 Based on your recent mood patterns and water intake, we recommend increasing your hydration today and
                 taking a 15-minute walk outside. This may help improve your energy levels.
@@ -270,7 +270,7 @@ export default function DailyInput() {
           </CardContent>
           <CardFooter>
             <Link href="/patient/reports" className="w-full">
-              <Button className="w-full bg-[#F48FB1] hover:bg-[#f8BBD0]">View Full Health Analysis</Button>
+              <Button className="w-full bg-[#9059a1] hover:bg-[#ba98c4]">View Full Health Analysis</Button>
             </Link>
           </CardFooter>
         </Card>
