@@ -87,7 +87,7 @@ export default function ConsultationPage() {
                     <div className="relative w-full h-96 bg-gray-900 rounded-lg overflow-hidden">
                       <div className="w-full h-full flex items-center justify-center">
                         <img
-                          src="https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827776.jpg?t=st=1746365126~exp=1746368726~hmac=c98cd7f329e3a3cd25fa3879110bfaf555f2ef062cbfa505ba02052270be2e86&w=826"
+                          src="https://www.shutterstock.com/shutterstock/videos/1062413938/thumb/1.jpg?ip=x480"
                           alt="ডাক্তারের ভিডিও"
                           className="w-full h-full object-cover"
                         />
