@@ -3,79 +3,34 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from "@/public/logo.png";
 import { useMobile } from "@/hooks/use-mobile";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 
 export default function Navbar() {
   const isMobile = useMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<"english" | "bengali">("english");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleLanguage = () => {
-    setLanguage(language === "english" ? "bengali" : "english");
+  // All translations in Bangla only
+  const t = {
+    home: "হোম",
+    patientPortal: "রোগীর পোর্টাল",
+    doctorPortal: "ডাক্তার পোর্টাল",
   };
-
-  // Translations for demonstration
-  const translations = {
-    english: {
-      home: "Home",
-
-      patientPortal: "Patient Portal",
-      doctorPortal: "Doctor Portal",
-    },
-    bengali: {
-      home: "হোম",
-      patientPortal: "রোগীর পোর্টাল",
-      doctorPortal: "ডাক্তার পোর্টাল",
-    },
-  };
-
-  const t = translations[language];
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-2 ">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Image src={logo} alt="Logo" className="h-16 w-auto" />
-
-          {/* Language Toggle */}
-          <div className="flex items-center ml-4 mr-auto">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <Globe
-                    className="h-10 w-10 text-[#bengali]"
-                    color="#9059a1"
-                  />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLanguage("english")}>
-                  <span className={language === "english" ? "font-bold" : ""}>
-                    English
-                  </span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage("bengali")}>
-                  <span className={language === "bengali" ? "font-bold" : ""}>
-                    বাংলা
-                  </span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          {/* Logo with link to home */}
+          <Link href="/">
+            <Image src={logo} alt="লোগো" className="h-16 w-auto cursor-pointer" />
+          </Link>
 
           {/* Desktop Navigation */}
           {!isMobile && <nav className="hidden md:flex space-x-8 pr-8"></nav>}

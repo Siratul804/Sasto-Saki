@@ -1,10 +1,13 @@
 import type React from "react"
 import "./globals.css"
-import { Inter } from "next/font/google"
+import { Hind_Siliguri } from 'next/font/google';
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Hind_Siliguri({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 export const metadata = {
   title: "Women's Health Platform",
