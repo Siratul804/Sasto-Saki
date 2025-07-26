@@ -29,7 +29,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo with link to home */}
           <Link href="/">
-            <Image src={logo} alt="লোগো" className="h-16 w-auto cursor-pointer" />
+            <Image
+              src={logo}
+              alt="লোগো"
+              className="h-16 w-auto cursor-pointer"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -40,7 +44,7 @@ export default function Navbar() {
             <Link href="/patient/dashboard">
               <Button
                 variant="outline"
-                className="border-[#9059a1] text-[#9059a1] hover:bg-[#f8BBD0]/10"
+                className="border-[#9059a1] text-[#9059a1] hover:text-[#9059a1] hover:bg-white "
               >
                 {t.patientPortal}
               </Button>
