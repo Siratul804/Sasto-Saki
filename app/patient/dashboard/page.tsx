@@ -271,7 +271,7 @@ export default function PatientDashboard() {
         </div>
 
         {/* Additional Features - Simplified Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10 ">
           <Link href="/patient/partner-mode" className="block">
             <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all group">
               <CardContent className="pt-6">
