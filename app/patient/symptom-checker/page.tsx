@@ -22,9 +22,15 @@ import {
   Check,
   FileText,
   Loader2,
-  Search,
   Stethoscope,
   Thermometer,
+  Heart,
+  Clock,
+  User,
+  ArrowLeft,
+  Shield,
+  Calendar,
+  Phone,
 } from "lucide-react";
 import {
   Select,
@@ -40,22 +46,23 @@ export default function SymptomCheckerPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
 
   const handleNext = () => {
-    if (step < 4) {
+    if (step < 3) {
       setStep(step + 1);
     } else {
       setIsAnalyzing(true);
       let progressValue = 0;
       const interval = setInterval(() => {
-        progressValue += 5;
+        progressValue += 10;
         setProgress(progressValue);
         if (progressValue >= 100) {
           clearInterval(interval);
           setIsAnalyzing(false);
           setShowResults(true);
         }
-      }, 150);
+      }, 200);
     }
   };
 
@@ -68,411 +75,455 @@ export default function SymptomCheckerPage() {
     setIsAnalyzing(false);
     setShowResults(false);
     setProgress(0);
+    setSelectedSymptoms([]);
   };
 
+  const handleSymptomChange = (symptom: any, checked: any) => {
+    if (checked) {
+      setSelectedSymptoms([...selectedSymptoms, symptom]);
+    } else {
+      setSelectedSymptoms(selectedSymptoms.filter((s) => s !== symptom));
+    }
+  };
+
+  const commonSymptoms = [
+    {
+      id: "irregular-periods",
+      label: "অনিয়মিত মাসিক",
+      icon: Heart,
+      color: "pink",
+    },
+    { id: "weight-gain", label: "ওজন বৃদ্ধি", icon: User, color: "blue" },
+    {
+      id: "mood-changes",
+      label: "মেজাজ পরিবর্তন",
+      icon: Heart,
+      color: "purple",
+    },
+    { id: "fatigue", label: "ক্লান্তি", icon: Clock, color: "orange" },
+    { id: "headaches", label: "মাথাব্যথা", icon: Thermometer, color: "red" },
+    { id: "acne", label: "ব্রণ", icon: User, color: "green" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50 pb-12">
-      {/* Header */}
-      <div className="bg-[#9059a1] py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-50 py-4 ">
+      {/* Enhanced Header */}
+      <div className="bg-gradient-to-r from-[#9059a1] to-[#ba98c4] py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-white mb-2">লক্ষণ পরীক্ষক</h1>
-          <p className="text-white opacity-90">
-            সম্ভাব্য স্বাস্থ্য সমস্যা নির্ধারণ করুন এবং পরবর্তী পদক্ষেপের জন্য
-            পরামর্শ পান
-          </p>
+          <div className="text-center">
+            <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Stethoscope className="h-8 w-8 text-white" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              {showResults
+                ? "আপনার স্বাস্থ্য রিপোর্ট"
+                : "স্মার্ট লক্ষণ পরীক্ষক"}
+            </h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+              {showResults
+                ? "আপনার লক্ষণের ভিত্তিতে প্রাথমিক মূল্যায়ন এবং পরামর্শ"
+                : "কয়েকটি সহজ প্রশ্নের উত্তর দিন এবং AI-চালিত স্বাস্থ্য পরামর্শ পান"}
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 -mt-6">
-        <Card className="shadow-md">
-          <CardHeader>
-            <CardTitle>
-              {showResults
-                ? "লক্ষণ বিশ্লেষণ ফলাফল"
-                : isAnalyzing
-                ? "আপনার লক্ষণ বিশ্লেষণ করা হচ্ছে"
-                : "আপনার লক্ষণ পরীক্ষা করুন"}
-            </CardTitle>
-            <CardDescription>
-              {showResults
-                ? "আপনার দেওয়া তথ্যের ভিত্তিতে"
-                : isAnalyzing
-                ? "দয়া করে অপেক্ষা করুন, আমাদের AI লক্ষণ বিশ্লেষণ করছে"
-                : "কিছু প্রশ্নের উত্তর দিন যাতে আমরা আপনার লক্ষণ বুঝতে পারি"}
-            </CardDescription>
-          </CardHeader>
+      <div className="container mx-auto px-4 -mt-8">
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm max-w-4xl mx-auto">
+          {!showResults && !isAnalyzing && (
+            <CardHeader className="text-center pb-4">
+              <div className="flex justify-center mb-6">
+                {[1, 2, 3].map((stepNumber) => (
+                  <div key={stepNumber} className="flex items-center">
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center mx-2 transition-all ${
+                        stepNumber < step
+                          ? "bg-[#9059a1] text-white shadow-lg"
+                          : stepNumber === step
+                          ? "bg-[#9059a1] text-white shadow-lg scale-110"
+                          : "bg-gray-200 text-gray-500"
+                      }`}
+                    >
+                      {stepNumber < step ? (
+                        <Check className="h-5 w-5" />
+                      ) : (
+                        stepNumber
+                      )}
+                    </div>
+                    {stepNumber < 3 && (
+                      <div
+                        className={`w-16 h-1 ${
+                          stepNumber < step ? "bg-[#9059a1]" : "bg-gray-200"
+                        }`}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <CardTitle className="text-xl">
+                {step === 1
+                  ? "আপনার মূল তথ্য"
+                  : step === 2
+                  ? "আপনার লক্ষণ নির্বাচন করুন"
+                  : "অতিরিক্ত তথ্য"}
+              </CardTitle>
+              <CardDescription>
+                {step === 1
+                  ? "প্রাথমিক তথ্য দিয়ে শুরু করুন"
+                  : step === 2
+                  ? "যে লক্ষণগুলো আপনার আছে সেগুলো বেছে নিন"
+                  : "আরও নির্ভুল পরামর্শের জন্য"}
+              </CardDescription>
+            </CardHeader>
+          )}
 
-          <CardContent>
+          <CardContent className="px-8">
             {isAnalyzing ? (
-              <div className="text-center py-8 space-y-6">
-                <Loader2 className="h-12 w-12 text-[#9059a1] animate-spin mx-auto" />
+              <div className="text-center py-12 space-y-6">
+                <div className="bg-gradient-to-r from-purple-100 to-pink-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto">
+                  <Loader2 className="h-12 w-12 text-[#9059a1] animate-spin" />
+                </div>
                 <div>
-                  <h3 className="text-lg font-medium mb-2">
-                    আপনার লক্ষণ বিশ্লেষণ করা হচ্ছে...
+                  <h3 className="text-2xl font-semibold mb-3 text-gray-800">
+                    আপনার স্বাস্থ্য বিশ্লেষণ করা হচ্ছে...
                   </h3>
-                  <p className="text-gray-600 mb-4">
-                    আমাদের AI আপনার লক্ষণ চিকিৎসা তথ্যের সঙ্গে তুলনা করছে।
+                  <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                    আমাদের AI সিস্টেম আপনার লক্ষণগুলো বিশ্লেষণ করে সম্ভাব্য কারণ
+                    এবং পরামর্শ প্রস্তুত করছে।
                   </p>
-                  <Progress
-                    value={progress}
-                    className="w-full max-w-md mx-auto"
-                  />
-                  <p className="text-sm text-gray-500 mt-2">
-                    {progress}% সম্পন্ন
-                  </p>
+                  <div className="max-w-sm mx-auto">
+                    <Progress value={progress} className="h-3" />
+                    <p className="text-sm text-gray-500 mt-2">
+                      {progress}% সম্পন্ন
+                    </p>
+                  </div>
                 </div>
               </div>
             ) : showResults ? (
-              <div className="space-y-6">
+              <div className="space-y-8 py-6">
                 {/* Results Summary */}
-                <div className="p-4 bg-[#9059a1]/10 rounded-lg border border-[#9059a1]">
-                  <h3 className="font-medium text-[#9059a1] mb-3 flex items-center">
-                    <FileText className="mr-2 h-5 w-5" /> লক্ষণ বিশ্লেষণ
-                    সারসংক্ষেপ
+                <div className="text-center mb-8">
+                  <div className="bg-gradient-to-r from-green-100 to-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileText className="h-8 w-8 text-[#9059a1]" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                    আপনার স্বাস্থ্য মূল্যায়ন সম্পন্ন
                   </h3>
-                  <p className="text-gray-700 mb-4">
-                    আপনার দেওয়া লক্ষণগুলির ভিত্তিতে আমাদের বিশ্লেষণ নির্দেশ করে:
+                  <p className="text-gray-600">
+                    আপনার দেওয়া তথ্যের ভিত্তিতে আমাদের প্রাথমিক বিশ্লেষণ
                   </p>
+                </div>
 
-                  <div className="space-y-4">
-                    <div className="p-3 bg-white rounded border">
-                      <div className="flex items-start">
-                        <div className="bg-yellow-100 p-1 rounded-full mr-3">
-                          <AlertTriangle className="h-5 w-5 text-yellow-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-800">
-                            সম্ভাব্য PCOS সূচক
-                          </h4>
-                          <p className="text-sm text-gray-600">
-                            অনিয়মিত মাসিক, ওজন বৃদ্ধি, এবং মেজাজ পরিবর্তন PCOS
-                            এর সাধারণ লক্ষণ।
-                          </p>
-                        </div>
+                {/* Key Findings */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">
+                    <div className="flex items-start space-x-3">
+                      <div className="bg-yellow-500 p-2 rounded-lg">
+                        <AlertTriangle className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2">
+                          সম্ভাব্য PCOS সূচক
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          আপনার লক্ষণগুলো PCOS (পলিসিস্টিক ওভারি সিনড্রোম) এর
+                          সাথে মিলে যাচ্ছে। এটি খুবই সাধারণ এবং চিকিৎসাযোগ্য।
+                        </p>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="p-3 bg-white rounded border">
-                      <div className="flex items-start">
-                        <div className="bg-blue-100 p-1 rounded-full mr-3">
-                          <Thermometer className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-800">
-                            হরমোনিক ভারসাম্যহীনতা
-                          </h4>
-                          <p className="text-sm text-gray-600">
-                            লক্ষণগুলো হরমোন ভারসাম্যহীনতার ইঙ্গিত দিতে পারে, যা
-                            চিকিৎসকের কাছে যাচাই করা উচিত।
-                          </p>
-                        </div>
+                  <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
+                    <div className="flex items-start space-x-3">
+                      <div className="bg-blue-500 p-2 rounded-lg">
+                        <Heart className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2">
+                          হরমোনাল ভারসাম্যহীনতা
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          আপনার লক্ষণগুলো হরমোনের ভারসাম্যহীনতার ইঙ্গিত দিচ্ছে।
+                          সঠিক চিকিৎসায় এটি নিয়ন্ত্রণ করা সম্ভব।
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Recommended Actions */}
-                <div className="p-4 bg-white rounded-lg border">
-                  <h3 className="font-medium mb-3 flex items-center">
-                    <Check className="mr-2 h-5 w-5 text-[#9059a1]" /> পরবর্তী
-                    পরামর্শকৃত পদক্ষেপ
+                {/* Immediate Actions */}
+                <div className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+                  <h3 className="font-semibold text-lg text-gray-800 mb-4 flex items-center">
+                    <Shield className="mr-2 h-5 w-5 text-[#9059a1]" />
+                    আপনার জন্য পরামর্শ
                   </h3>
-                  <div className="space-y-3">
-                    {[
-                      {
-                        id: 1,
-                        title: "গাইনেকোলজিস্টের সঙ্গে পরামর্শ করুন",
-                        desc: "উপযুক্ত মূল্যায়ন ও নির্ণয়ের জন্য গাইনেকোলজিস্টের অ্যাপয়েন্টমেন্ট নিন।",
-                        link: "/patient/consultation",
-                        btn: "গাইনেকোলজিস্ট খুঁজুন",
-                      },
-                      {
-                        id: 2,
-                        title: "আপনার লক্ষণ ট্র্যাক করুন",
-                        desc: "বিস্তারিত তথ্যের জন্য প্রতিদিন লক্ষণ রেকর্ড চালিয়ে যান।",
-                        link: "/patient/daily-input",
-                        btn: "দৈনিক ট্র্যাকিং",
-                      },
-                      {
-                        id: 3,
-                        title: "হরমোন টেস্ট বিবেচনা করুন",
-                        desc: "PCOS সম্পর্কিত ভারসাম্যহীনতা যাচাই করতে হরমোন টেস্ট করাতে হতে পারে。",
-                      },
-                    ].map((stepData) => (
-                      <div key={stepData.id} className="flex items-start">
-                        <div className="bg-[#9059a1] rounded-full w-6 h-6 flex items-center justify-center mr-3 text-white font-medium">
-                          {stepData.id}
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-800">
-                            {stepData.title}
-                          </h4>
-                          <p className="text-sm text-gray-600 mb-2">
-                            {stepData.desc}
-                          </p>
-                          {stepData.link && (
-                            <Link href={stepData.link}>
-                              <Button
-                                size="sm"
-                                className="bg-[#9059a1] hover:bg-[#683f75]"
-                              >
-                                {stepData.btn}
-                              </Button>
-                            </Link>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <Calendar className="h-8 w-8 text-[#9059a1] mx-auto mb-2" />
+                      <h4 className="font-medium mb-1">জরুরি নয়</h4>
+                      <p className="text-sm text-gray-600">
+                        ১-২ সপ্তাহের মধ্যে ডাক্তার দেখান
+                      </p>
+                    </div>
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <Stethoscope className="h-8 w-8 text-[#9059a1] mx-auto mb-2" />
+                      <h4 className="font-medium mb-1">স্ত্রীরোগ বিশেষজ্ঞ</h4>
+                      <p className="text-sm text-gray-600">
+                        গাইনেকোলজিস্টের পরামর্শ নিন
+                      </p>
+                    </div>
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <Heart className="h-8 w-8 text-[#9059a1] mx-auto mb-2" />
+                      <h4 className="font-medium mb-1">জীবনযাত্রা</h4>
+                      <p className="text-sm text-gray-600">
+                        স্বাস্থ্যকর খাবার ও ব্যায়াম
+                      </p>
+                    </div>
                   </div>
                 </div>
 
                 {/* Doctor Recommendations */}
-                <div className="p-4 bg-gray-50 rounded-lg border">
-                  <h3 className="font-medium mb-3 flex items-center">
-                    <Stethoscope className="mr-2 h-5 w-5 text-[#9059a1]" />{" "}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg text-gray-800 flex items-center">
+                    <Stethoscope className="mr-2 h-5 w-5 text-[#9059a1]" />
                     সুপারিশকৃত বিশেষজ্ঞ
                   </h3>
-                  <div className="space-y-3">
+                  <div className="grid md:grid-cols-2 gap-4">
                     {[
                       {
-                        name: "ডাঃ আইসা রহমান",
-                        spec: "গাইনেকোলজিস্ট, PCOS বিশেষজ্ঞ",
+                        name: "ডাঃ আয়েশা রহমান",
+                        spec: "গাইনেকোলজিস্ট ও PCOS বিশেষজ্ঞ",
+                        rating: "৪.৮",
+                        experience: "১৫+ বছর অভিজ্ঞতা",
                       },
                       {
                         name: "ডাঃ নাসরীন আহমেদ",
-                        spec: "এন্ডোক্রিনোলজিস্ট, হরমোন বিশেষজ্ঞ",
+                        spec: "এন্ডোক্রিনোলজিস্ট",
+                        rating: "৪.৭",
+                        experience: "১২+ বছর অভিজ্ঞতা",
                       },
                     ].map((doc, i) => (
                       <div
                         key={i}
-                        className="p-3 bg-white rounded border flex items-start"
+                        className="p-4 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow"
                       >
-                        <div className="bg-[#9059a1] rounded-full w-8 h-8 flex items-center justify-center mr-3">
-                          <Stethoscope className="h-4 w-4 text-white" />
-                        </div>
-                        <div className="flex-1 flex justify-between items-center">
+                        <div className="flex justify-between items-start mb-3">
                           <div>
-                            <h4 className="font-medium text-gray-800">
+                            <h4 className="font-semibold text-gray-800">
                               {doc.name}
                             </h4>
                             <p className="text-sm text-gray-600">{doc.spec}</p>
+                            <p className="text-xs text-gray-500">
+                              {doc.experience}
+                            </p>
                           </div>
-                          <Link href="/patient/consultation">
+                          <div className="text-right">
+                            <div className="flex items-center text-yellow-500 text-sm">
+                              ⭐ {doc.rating}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Link href="/patient/consultation" className="flex-1">
                             <Button
                               size="sm"
-                              className="bg-[#9059a1] hover:bg-[#683f75]"
+                              className="w-full bg-[#9059a1] hover:bg-[#683f75]"
                             >
+                              <Calendar className="mr-1 h-3 w-3" />
                               বুক করুন
                             </Button>
                           </Link>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1"
+                          >
+                            <Phone className="mr-1 h-3 w-3" />
+                            কল করুন
+                          </Button>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Disclaimer */}
-                <div className="text-sm text-gray-500 italic">
-                  <p>
-                    দাবিত্যাগ: এই লক্ষণ পরীক্ষক শুধুমাত্র সাধারণ তথ্য প্রদান করে
-                    এবং রোগ নির্ণয় বা চিকিৎসার জন্য ব্যবহার করা উচিত নয়।
-                    সর্বদা একজন যোগ্য স্বাস্থ্যসেবা প্রদানকারীর কাছ থেকে চিকিৎসা
-                    পরামর্শ নিন।
-                  </p>
+                {/* Important Note */}
+                <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                  <div className="flex items-start space-x-3">
+                    <Shield className="h-5 w-5 text-amber-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-amber-800 mb-1">
+                        গুরুত্বপূর্ণ নোট
+                      </h4>
+                      <p className="text-sm text-amber-700">
+                        এই পরীক্ষা শুধুমাত্র প্রাথমিক ধারণা দেয়। চূড়ান্ত
+                        নির্ণয় এবং চিকিৎসার জন্য অবশ্যই একজন যোগ্য চিকিৎসকের
+                        পরামর্শ নিন। জরুরি অবস্থায় ১৯৯ নম্বরে কল করুন।
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
-              <div className="space-y-6">
-                {/* Progress Steps */}
-                <div className="flex justify-between mb-6">
-                  {[1, 2, 3, 4].map((stepNumber) => (
-                    <div
-                      key={stepNumber}
-                      className={`flex flex-col items-center ${
-                        stepNumber < step
-                          ? "text-[#9059a1]"
-                          : stepNumber === step
-                          ? "text-[#9059a1]"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 ${
-                          stepNumber < step
-                            ? "bg-[#9059a1] text-white"
-                            : stepNumber === step
-                            ? "border-2 border-[#9059a1] text-[#9059a1]"
-                            : "border-2 border-gray-200 text-gray-400"
-                        }`}
-                      >
-                        {stepNumber < step ? (
-                          <Check className="h-4 w-4" />
-                        ) : (
-                          stepNumber
-                        )}
-                      </div>
-                      <span className="text-xs">
-                        {stepNumber === 1
-                          ? "মৌলিক তথ্য"
-                          : stepNumber === 2
-                          ? "লক্ষণ"
-                          : stepNumber === 3
-                          ? "সময়কাল"
-                          : "অতিরিক্ত"}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
+              <div className="space-y-8 py-2">
                 {/* Step 1: Basic Information */}
                 {step === 1 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="age">বয়স</Label>
-                      <Input
-                        id="age"
-                        type="number"
-                        placeholder="আপনার বয়স লিখুন"
-                        className="mt-1"
-                      />
+                  <div className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <Label htmlFor="age" className="text-base font-medium">
+                          বয়স *
+                        </Label>
+                        <Input
+                          id="age"
+                          type="number"
+                          placeholder="উদাহরণ: ২৫"
+                          className="mt-2 h-12"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-base font-medium">
+                          আপনি কি গর্ভবতী? *
+                        </Label>
+                        <RadioGroup defaultValue="no" className="mt-3">
+                          <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-gray-50">
+                            <RadioGroupItem value="no" id="pregnant-no" />
+                            <Label
+                              htmlFor="pregnant-no"
+                              className="cursor-pointer"
+                            >
+                              না
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-gray-50">
+                            <RadioGroupItem value="yes" id="pregnant-yes" />
+                            <Label
+                              htmlFor="pregnant-yes"
+                              className="cursor-pointer"
+                            >
+                              হ্যাঁ
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-gray-50">
+                            <RadioGroupItem
+                              value="unsure"
+                              id="pregnant-unsure"
+                            />
+                            <Label
+                              htmlFor="pregnant-unsure"
+                              className="cursor-pointer"
+                            >
+                              নিশ্চিত নই
+                            </Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
                     </div>
 
                     <div>
-                      <Label>জৈবিক লিঙ্গ</Label>
-                      <RadioGroup defaultValue="female" className="mt-2">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="female" id="female" />
-                          <Label htmlFor="female">মহিলা</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="male" id="male" />
-                          <Label htmlFor="male">পুরুষ</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="other" id="other" />
-                          <Label htmlFor="other">অন্যান্য</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="pregnant">
-                        আপনি কি গর্ভবতী বা সম্ভাব্য গর্ভবতী?
+                      <Label className="text-base font-medium mb-3 block">
+                        আপনার কোনো দীর্ঘমেয়াদী রোগ আছে কি?
                       </Label>
-                      <RadioGroup defaultValue="no" className="mt-2">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="yes" id="pregnant-yes" />
-                          <Label htmlFor="pregnant-yes">হ্যাঁ</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no" id="pregnant-no" />
-                          <Label htmlFor="pregnant-no">না</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="unsure" id="pregnant-unsure" />
-                          <Label htmlFor="pregnant-unsure">নিশ্চিত নন</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="conditions">
-                        আপনার কোনো বিদ্যমান চিকিৎসা শর্ত আছে কি?
-                      </Label>
-                      <div className="mt-2 space-y-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="diabetes" />
-                          <Label htmlFor="diabetes">ডায়াবেটিস</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="hypertension" />
-                          <Label htmlFor="hypertension">উচ্চ রক্তচাপ</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="thyroid" />
-                          <Label htmlFor="thyroid">থাইরয়েড রোগ</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="pcos" />
-                          <Label htmlFor="pcos">PCOS</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="other-condition" />
-                          <Label htmlFor="other-condition">অন্যান্য</Label>
-                        </div>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {[
+                          { id: "diabetes", label: "ডায়াবেটিস" },
+                          { id: "hypertension", label: "উচ্চ রক্তচাপ" },
+                          { id: "thyroid", label: "থাইরয়েড সমস্যা" },
+                          { id: "pcos", label: "PCOS/PCOD" },
+                        ].map((condition) => (
+                          <div
+                            key={condition.id}
+                            className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-gray-50"
+                          >
+                            <Checkbox id={condition.id} />
+                            <Label
+                              htmlFor={condition.id}
+                              className="cursor-pointer"
+                            >
+                              {condition.label}
+                            </Label>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Step 2: Symptoms */}
+                {/* Step 2: Symptoms Selection */}
                 {step === 2 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="primary-symptom">
-                        আপনার প্রাথমিক উদ্বেগ কী?
-                      </Label>
-                      <div className="relative mt-1">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <Input
-                          id="primary-symptom"
-                          placeholder="লক্ষণ অনুসন্ধান করুন..."
-                          className="pl-10"
-                          defaultValue="অনিয়মিত মাসিক"
-                        />
-                      </div>
+                  <div className="space-y-6">
+                    <div className="text-center mb-6">
+                      <h3 className="text-lg font-medium text-gray-800 mb-2">
+                        যে লক্ষণগুলো আপনার মধ্যে দেখা যাচ্ছে সেগুলো নির্বাচন
+                        করুন
+                      </h3>
+                      <p className="text-gray-600">
+                        একাধিক লক্ষণ নির্বাচন করতে পারেন
+                      </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {commonSymptoms.map((symptom) => {
+                        const Icon = symptom.icon;
+                        const isSelected = selectedSymptoms.includes(
+                          symptom.id
+                        );
+                        return (
+                          <div
+                            key={symptom.id}
+                            className={`p-4 rounded-xl border-2 cursor-pointer transition-all hover:shadow-md ${
+                              isSelected
+                                ? "border-[#9059a1] bg-purple-50"
+                                : "border-gray-200 hover:border-gray-300"
+                            }`}
+                            onClick={() =>
+                              handleSymptomChange(symptom.id, !isSelected)
+                            }
+                          >
+                            <div className="flex items-center space-x-3">
+                              <div
+                                className={`p-2 rounded-lg ${
+                                  isSelected ? "bg-[#9059a1]" : "bg-gray-100"
+                                }`}
+                              >
+                                <Icon
+                                  className={`h-5 w-5 ${
+                                    isSelected ? "text-white" : "text-gray-600"
+                                  }`}
+                                />
+                              </div>
+                              <div>
+                                <h4
+                                  className={`font-medium ${
+                                    isSelected
+                                      ? "text-[#9059a1]"
+                                      : "text-gray-800"
+                                  }`}
+                                >
+                                  {symptom.label}
+                                </h4>
+                              </div>
+                              {isSelected && (
+                                <Check className="h-5 w-5 text-[#9059a1] ml-auto" />
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
 
                     <div>
-                      <Label>
-                        আপনার যে সমস্ত লক্ষণ দেখা যাচ্ছে তা নির্বাচন করুন:
-                      </Label>
-                      <div className="mt-2 space-y-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="irregular-periods" defaultChecked />
-                          <Label htmlFor="irregular-periods">
-                            অনিয়মিত মাসিক
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="weight-gain" defaultChecked />
-                          <Label htmlFor="weight-gain">ওজন বৃদ্ধি</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="acne" />
-                          <Label htmlFor="acne">ব্রণ</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="hair-growth" />
-                          <Label htmlFor="hair-growth">
-                            অতিরিক্ত চুল গজানো
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="mood-changes" defaultChecked />
-                          <Label htmlFor="mood-changes">মেজাজ পরিবর্তন</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="fatigue" />
-                          <Label htmlFor="fatigue">ক্লান্তি</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="headaches" />
-                          <Label htmlFor="headaches">মাথাব্যথা</Label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="symptom-description">
-                        আপনার লক্ষণগুলির বিস্তারিত বর্ণনা দিন:
+                      <Label
+                        htmlFor="other-symptoms"
+                        className="text-base font-medium"
+                      >
+                        অন্য কোনো লক্ষণ আছে কি?
                       </Label>
                       <Textarea
-                        id="symptom-description"
-                        placeholder="আপনার লক্ষণ সম্পর্কিত অতিরিক্ত বিবরণ প্রদান করুন..."
-                        className="mt-1"
-                        defaultValue="গত ৩ মাস ধরে আমার মাসিক অনিয়মিত। খাদ্যাভ্যাস বা ব্যায়ামে কোনো পরিবর্তন না থাকলেও ওজন বেড়েছে। মেজাজ পরিবর্তন ঘন ঘন হচ্ছে।"
+                        id="other-symptoms"
+                        placeholder="আপনার অন্যান্য লক্ষণ বিস্তারিত লিখুন..."
+                        className="mt-2 min-h-[100px]"
                       />
                     </div>
                   </div>
@@ -480,158 +531,67 @@ export default function SymptomCheckerPage() {
 
                 {/* Step 3: Duration and Severity */}
                 {step === 3 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="duration">
-                        আপনি কতদিন ধরে এই লক্ষণগুলি অনুভব করছেন?
-                      </Label>
-                      <Select defaultValue="3-months">
-                        <SelectTrigger id="duration" className="mt-1">
-                          <SelectValue placeholder="সময়কাল নির্বাচন করুন" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="days">কয়েক দিন</SelectItem>
-                          <SelectItem value="1-week">
-                            প্রায় এক সপ্তাহ
-                          </SelectItem>
-                          <SelectItem value="2-weeks">২ সপ্তাহ</SelectItem>
-                          <SelectItem value="1-month">১ মাস</SelectItem>
-                          <SelectItem value="3-months">৩ মাস</SelectItem>
-                          <SelectItem value="6-months">
-                            ৬ মাস বা বেশি
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                  <div className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <Label
+                          htmlFor="duration"
+                          className="text-base font-medium"
+                        >
+                          কতদিন ধরে এই লক্ষণগুলো আছে? *
+                        </Label>
+                        <Select defaultValue="">
+                          <SelectTrigger id="duration" className="mt-2 h-12">
+                            <SelectValue placeholder="সময়কাল নির্বাচন করুন" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="few-days">কয়েক দিন</SelectItem>
+                            <SelectItem value="1-week">১ সপ্তাহ</SelectItem>
+                            <SelectItem value="2-weeks">২-৩ সপ্তাহ</SelectItem>
+                            <SelectItem value="1-month">১ মাস</SelectItem>
+                            <SelectItem value="3-months">৩ মাস</SelectItem>
+                            <SelectItem value="6-months">
+                              ৬ মাস বা বেশি
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <Label
+                          htmlFor="severity"
+                          className="text-base font-medium"
+                        >
+                          লক্ষণের তীব্রতা কেমন? *
+                        </Label>
+                        <Select defaultValue="">
+                          <SelectTrigger id="severity" className="mt-2 h-12">
+                            <SelectValue placeholder="তীব্রতা নির্বাচন করুন" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="mild">মৃদু - সহনীয়</SelectItem>
+                            <SelectItem value="moderate">
+                              মাঝারি - কিছুটা অসুবিধা
+                            </SelectItem>
+                            <SelectItem value="severe">
+                              তীব্র - দৈনন্দিন কাজে বাধা
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="severity">
-                        আপনার লক্ষণগুলির তীব্রতা কেমন?
-                      </Label>
-                      <Select defaultValue="moderate">
-                        <SelectTrigger id="severity" className="mt-1">
-                          <SelectValue placeholder="তীব্রতা নির্বাচন করুন" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="mild">
-                            মৃদু - লক্ষণীয় কিন্তু ব্যাঘাতকারী নয়
-                          </SelectItem>
-                          <SelectItem value="moderate">
-                            মাঝারি - দৈনন্দিন জীবনে কিছুটা ব্যাঘাত
-                          </SelectItem>
-                          <SelectItem value="severe">
-                            গুরুতর - দৈনন্দিন কাজকর্মে উল্লেখযোগ্য প্রভাব
-                          </SelectItem>
-                          <SelectItem value="very-severe">
-                            অত্যন্ত গুরুতর - স্বাভাবিক কাজ করা অসম্ভব
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="progression">
-                        সময়ের সাথে লক্ষণগুলির কী পরিবর্তন হয়েছে?
-                      </Label>
-                      <Select defaultValue="worsening">
-                        <SelectTrigger id="progression" className="mt-1">
-                          <SelectValue placeholder="অবস্থার পরিবর্তন নির্বাচন করুন" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="improving">
-                            উন্নতি হচ্ছে
-                          </SelectItem>
-                          <SelectItem value="stable">
-                            স্থিতিশীল - কোনো উল্লেখযোগ্য পরিবর্তন নেই
-                          </SelectItem>
-                          <SelectItem value="fluctuating">
-                            ওঠানামা করছে - কিছু দিন ভালো, কিছু দিন খারাপ
-                          </SelectItem>
-                          <SelectItem value="worsening">খারাপ হচ্ছে</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="triggers">
-                        লক্ষণগুলি বাড়ানোর মতো কোনো ট্রিগার লক্ষ্য করেছেন কি?
-                      </Label>
-                      <Textarea
-                        id="triggers"
-                        placeholder="আপনার লক্ষণ বাড়ানোর মতো কোনো কারণ বর্ণনা করুন..."
-                        className="mt-1"
-                        defaultValue="চাপের সময় লক্ষণগুলো বেড়ে যায়। মাসিক শুরুর আগে মেজাজ পরিবর্তন বেশি হয়।"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 4: Additional Information */}
-                {step === 4 && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="medications">
-                        আপনি বর্তমানে কোন ওষুধ গ্রহণ করছেন?
-                      </Label>
-                      <Textarea
-                        id="medications"
-                        placeholder="বর্তমানে সেবনকৃত ওষুধের তালিকা করুন..."
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="allergies">
-                        আপনার কোনো অ্যালার্জি আছে কি?
-                      </Label>
-                      <Textarea
-                        id="allergies"
-                        placeholder="আপনার অ্যালার্জির তালিকা করুন..."
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="family-history">
-                        পরিবারে একই ধরনের লক্ষণ বা সম্পর্কিত রোগের ইতিহাস আছে
-                        কি?
-                      </Label>
-                      <RadioGroup defaultValue="yes" className="mt-2">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="yes" id="family-yes" />
-                          <Label htmlFor="family-yes">হ্যাঁ</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no" id="family-no" />
-                          <Label htmlFor="family-no">না</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="unsure" id="family-unsure" />
-                          <Label htmlFor="family-unsure">নিশ্চিত নন</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="family-details">
-                        যদি হ্যাঁ, দয়া করে বিবরণ দিন:
-                      </Label>
-                      <Textarea
-                        id="family-details"
-                        placeholder="প্রাসঙ্গিক পারিবারিক চিকিৎসা ইতিহাস বর্ণনা করুন..."
-                        className="mt-1"
-                        defaultValue="আমার মায়ের ৩০ এর দশকে PCOS ধরা পড়েছিল। আমার বোনেরও অনিয়মিত মাসিক হয়।"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="additional-info">
-                        অন্য কোনো তথ্য শেয়ার করতে চান?
+                      <Label
+                        htmlFor="additional-info"
+                        className="text-base font-medium"
+                      >
+                        অন্য কোনো গুরুত্বপূর্ণ তথ্য যা আমাদের জানা উচিত?
                       </Label>
                       <Textarea
                         id="additional-info"
-                        placeholder="অন্যান্য প্রাসঙ্গিক তথ্য যোগ করুন..."
-                        className="mt-1"
+                        placeholder="যেমন: পারিবারিক ইতিহাস, বর্তমানে কোনো ওষুধ সেবন, কোনো অ্যালার্জি ইত্যাদি..."
+                        className="mt-2 min-h-[120px]"
                       />
                     </div>
                   </div>
@@ -642,58 +602,79 @@ export default function SymptomCheckerPage() {
 
           <CardFooter
             className={`flex ${
-              showResults ? "justify-between" : "justify-end"
-            } border-t pt-6`}
+              showResults ? "justify-between" : "justify-between"
+            } border-t pt-6 px-8`}
           >
             {showResults ? (
               <>
-                <Button variant="outline" onClick={resetChecker}>
-                  নতুন পরীক্ষা শুরু করুন
+                <Button
+                  variant="outline"
+                  onClick={resetChecker}
+                  className="flex items-center"
+                >
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  নতুন পরীক্ষা
                 </Button>
                 <Link href="/patient/consultation">
-                  <Button className="bg-[#9059a1] hover:bg-[#683f75]">
-                    ডাক্তারের সাথে পরামর্শ করুন
+                  <Button className="bg-[#9059a1] hover:bg-[#683f75] flex items-center">
+                    <Stethoscope className="mr-2 h-4 w-4" />
+                    ডাক্তারের পরামর্শ নিন
                   </Button>
                 </Link>
               </>
-            ) : (
+            ) : !isAnalyzing ? (
               <>
-                {step > 1 && !isAnalyzing && (
-                  <Button
-                    variant="outline"
-                    onClick={handleBack}
-                    className="mr-auto"
-                  >
-                    পিছনে
-                  </Button>
-                )}
-                {!isAnalyzing && (
-                  <Button
-                    onClick={handleNext}
-                    className="bg-[#9059a1] hover:bg-[#683f75]"
-                  >
-                    {step < 4 ? (
-                      <>
-                        পরবর্তী <ArrowRight className="ml-2 h-4 w-4" />
-                      </>
-                    ) : (
-                      "লক্ষণ বিশ্লেষণ করুন"
-                    )}
-                  </Button>
-                )}
+                <div>
+                  {step > 1 && (
+                    <Button
+                      variant="outline"
+                      onClick={handleBack}
+                      className="flex items-center"
+                    >
+                      <ArrowLeft className="mr-2 h-4 w-4" />
+                      পিছনে
+                    </Button>
+                  )}
+                </div>
+                <Button
+                  onClick={handleNext}
+                  className="bg-[#9059a1] hover:bg-[#683f75] flex items-center px-8"
+                >
+                  {step < 3 ? (
+                    <>
+                      পরবর্তী <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  ) : (
+                    <>
+                      <Stethoscope className="mr-2 h-4 w-4" />
+                      বিশ্লেষণ করুন
+                    </>
+                  )}
+                </Button>
               </>
-            )}
+            ) : null}
           </CardFooter>
         </Card>
 
-        {/* Disclaimer */}
+        {/* Help Section */}
         {!showResults && !isAnalyzing && (
-          <div className="mt-6 text-sm text-gray-500 italic">
-            <p>
-              দাবিত্যাগ: এই লক্ষণ পরীক্ষক শুধুমাত্র সাধারণ তথ্য প্রদান করে এবং
-              রোগ নির্ণয় বা চিকিৎসার জন্য ব্যবহার করা উচিত নয়। সর্বদা একজন
-              যোগ্য স্বাস্থ্যসেবা প্রদানকারীর কাছ থেকে চিকিৎসা পরামর্শ নিন।
-            </p>
+          <div className="mt-8 max-w-4xl mx-auto py-4 ">
+            <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
+              <div className="flex items-start space-x-3">
+                <Shield className="h-6 w-6 text-blue-600 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-blue-800 mb-2">
+                    নিরাপত্তা ও গোপনীয়তা
+                  </h3>
+                  <p className="text-blue-700 text-sm">
+                    আপনার সব তথ্য সম্পূর্ণ নিরাপদ এবং গোপনীয়। আমরা আপনার
+                    ব্যক্তিগত তথ্য কারো সাথে শেয়ার করি না। এই পরীক্ষা শুধুমাত্র
+                    প্রাথমিক ধারণা দেয় - চূড়ান্ত নির্ণয়ের জন্য অবশ্যই
+                    ডাক্তারের পরামর্শ নিন।
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

@@ -213,7 +213,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center md:justify-end items-center space-x-6 text-sm">
+            <div className="flex flex-wrap justify-center md:justify-end items-center space-x-8 text-sm">
               <Link
                 href="/privacy"
                 className="text-white/90 hover:text-white transition-colors flex items-center"
@@ -222,20 +222,12 @@ export default function Footer() {
                 গোপনীয়তা নীতি
               </Link>
 
-              <div className="p-5"></div>
-
               <Link
                 href="/terms"
                 className="text-white/90 hover:text-white transition-colors flex items-center "
               >
                 <FileText size={14} className="mr-1" />
                 শর্তাবলী
-              </Link>
-              <Link
-                href="/help"
-                className="text-white/90 hover:text-white transition-colors"
-              >
-                সাহায্য
               </Link>
             </div>
           </div>
