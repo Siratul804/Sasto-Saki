@@ -75,21 +75,21 @@ export default function Navbar() {
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/"
-                className="text-gray-700 hover:text-[#F48FB1] transition-colors py-2"
+                className="text-gray-700 hover:text-[#9059a1] transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t.home}
               </Link>
               <Link
                 href="/patient/dashboard"
-                className="text-gray-700 hover:text-[#F48FB1] transition-colors py-2"
+                className="text-gray-700 hover:text-[#9059a1] transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t.patientPortal}
               </Link>
               <Link
                 href="/doctor/register"
-                className="text-gray-700 hover:text-[#F48FB1] transition-colors py-2"
+                className="text-gray-700 hover:text-[#9059a1] transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t.doctorPortal}
@@ -101,7 +101,7 @@ export default function Navbar() {
                 >
                   <Button
                     variant="outline"
-                    className="border-[#F48FB1] text-[#F48FB1] hover:bg-[#f8BBD0]/10 w-full"
+                    className="border-[#9059a1] text-[#9059a1] hover:text-[#9059a1] hover:bg-white w-full"
                   >
                     {t.patientPortal}
                   </Button>
@@ -110,7 +110,7 @@ export default function Navbar() {
                   href="/doctor/register"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <Button className="bg-[#F48FB1] hover:bg-[#f8BBD0] w-full">
+                  <Button className="bg-[#9059a1] hover:bg-[#9059a1] w-full">
                     {t.doctorPortal}
                   </Button>
                 </Link>
