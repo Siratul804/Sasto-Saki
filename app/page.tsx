@@ -547,7 +547,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-gray-600 leading-relaxed text-[15px] mb-6 italic">
-                  "{t.text}"
+                  &ldquo;{t.text}&rdquo;
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#9059a1]/40 to-purple-200 flex items-center justify-center text-[#9059a1] font-bold text-sm">

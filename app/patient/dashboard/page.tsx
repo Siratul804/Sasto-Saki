@@ -21,7 +21,6 @@ import {
   Activity,
   Bell,
   TrendingUp,
-  Shield,
   ArrowRight,
 } from "lucide-react";
 

@@ -78,7 +78,7 @@ export default function SymptomCheckerPage() {
     setSelectedSymptoms([]);
   };
 
-  const handleSymptomChange = (symptom: any, checked: any) => {
+  const handleSymptomChange = (symptom: string, checked: boolean) => {
     if (checked) {
       setSelectedSymptoms([...selectedSymptoms, symptom]);
     } else {
