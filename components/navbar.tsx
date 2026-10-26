@@ -73,27 +73,7 @@ export default function Navbar() {
         <div className="md:hidden bg-white shadow-md">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                className="text-gray-700 hover:text-[#9059a1] transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {t.home}
-              </Link>
-              <Link
-                href="/patient/dashboard"
-                className="text-gray-700 hover:text-[#9059a1] transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {t.patientPortal}
-              </Link>
-              <Link
-                href="/doctor/register"
-                className="text-gray-700 hover:text-[#9059a1] transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {t.doctorPortal}
-              </Link>
+
               <div className="flex flex-col space-y-2 pt-2 border-t border-gray-100">
                 <Link
                   href="/patient/dashboard"
